@@ -10,7 +10,9 @@ import { addToBasket } from "../redux/basketSlice";
 function CardDrinks() {
 
     const productsData = useSelector((state) => state.products.products);
-    const drinks = productsData[2];
+    const drinksArr = productsData.filter(item => item.type === "drinks");
+    //drinks.push(productsData.slice(14, 15))
+    console.log();
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -20,11 +22,11 @@ function CardDrinks() {
     const [drinksProd, setDrinksProd] = useState([])
 
     useEffect(() => {
-        if (drinks) {
+        if (drinksArr) {
 
-            setDrinksProd(drinks);
+            setDrinksProd(drinksArr);
         }
-    }, [drinks]);
+    }, []);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -73,13 +75,13 @@ function CardDrinks() {
             <h1 className={styles.nameCard}>Напої</h1>
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    drinksProd.map((item) => {
+                    drinksArr.map((item) => {
 
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                                 <img src={item.imgSrc} className={styles.itemIcon} alt="" />
                                 <h2 className={styles.nameProduct}>{item.name}</h2>
-                                <div className={styles.itemOption}>{item.option}</div>
+                                {item.option ? <div className={styles.itemOption}>{item.option}</div> : null}
                                 <div className={styles.aboutProduct}>
                                     <p className={styles.itemProd}>{item.details}</p>
                                     <span className={styles.weightProduct}> Вага: {item.weight}</span>

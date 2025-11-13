@@ -81,6 +81,15 @@ h1 {
     font-size: 22px;
 }
 
+.cardFooter {
+
+    margin-top: 60px;
+}
+
+.cardFoot_H2 {
+    text-align: center;
+}
+
 .cardFoot_H1 {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-top: 30px;
@@ -91,6 +100,8 @@ h1 {
     .cardFoot_H2 {
         font-size: 26px;
     }
+
+
 
     .cardFoot_H1 {
         font-size: 23px;
@@ -142,6 +153,8 @@ h1 {
     }
 
     .cardFooter {
+
+
         width: 100%;
         display: flex;
         flex-direction: column;

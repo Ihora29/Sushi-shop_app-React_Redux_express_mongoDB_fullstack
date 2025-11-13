@@ -11,7 +11,7 @@ function AllProductsCard() {
         .filter((item) => item)
         .reduce((acc, curr) => acc.concat(curr), []);
 
-    const basket = useSelector((state) => state.basketItems.basketItems);
+    // const basket = useSelector((state) => state.basketItems.basketItems);
 
     const [localProducts, setLocalProducts] = useState([]);
 
@@ -78,7 +78,7 @@ function AllProductsCard() {
                         <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                             <img src={item.imgSrc} className={styles.itemIcon} alt="" />
                             <h2 className={styles.nameProduct}>{item.name}</h2>
-                            <div className={styles.itemOption}>{item.option}</div>
+                            {item.option ? <div className={styles.itemOption}>{item.option}</div> : null}
                             <div className={styles.aboutProduct}>
                                 <p className={styles.itemProd}>{item.details}</p>
                                 <span className={styles.weightProduct}> Вага: {item.weight}</span>

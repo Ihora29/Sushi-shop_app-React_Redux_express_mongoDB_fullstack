@@ -1,25 +1,25 @@
-import React, { useEffect, useState, createContext } from 'react'
+import { createContext } from 'react'
 import { NavLink, useLocation, Outlet } from "react-router-dom";
 import styles from "../../styles/UserCabinet.module.css"
-import { useMask } from '@react-input/mask';
-import { set, useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
-import { ChangeUserName } from "../user-cabinet/ChangeUserName"
-import axios from 'axios';
-export const userData = createContext(null);
+import { fetchUser } from '../redux/getUserSlice';
+import { useDispatch, useSelector, } from 'react-redux';
+import { useEffect } from 'react';
+import { Navigate } from "react-router-dom";
+const UserCabinet = () => {
+    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    const userAuth = useSelector((state) => state.getUser.user);
+    //  console.log(userAuth);
 
-export const UserCabinet = () => {
-
-    const location = useLocation();
-    const { state } = location || {};
-
-    //const [usersList, setUsersList] = useState([]);
-    // const [userEdit, setUserEdit] = useState(state);
-
-    // useEffect(() => {
+    useEffect(() => {
+        dispatch(fetchUser());
+    }, [dispatch]);
+    // if (!userAuth) {
+    //     return <Navigate to="/" replace />;
+    // }
 
 
-    // }, []);
+
 
     return (
         <>
@@ -36,7 +36,7 @@ export const UserCabinet = () => {
                 <div className={styles.userDataContainer}>
 
                     <Outlet
-                    // context={{ userEdit, setUserEdit }}
+
                     />
                 </div>
 
@@ -46,3 +46,5 @@ export const UserCabinet = () => {
         </ >
     )
 }
+
+export default UserCabinet

@@ -27,56 +27,46 @@ function LoginComp({ onClose }) {
     };
 
     const { register,
-        handleSubmit, formState: { errors } } = useForm();
+        handleSubmit, watch, formState: { errors } } = useForm({ mode: "onChange" });
 
-    const navigate = useNavigate();
+    const password = watch("password");
 
-    const [usersList, setUsersList] = useState([]);
-    useEffect(() => {
-        //setUserEdit(state);
-        axios.get('http://localhost:3001/users-login')
-            .then(response => {
-
-                setUsersList(response.data);
-            });
-    }, []);
-
-    const [showPassError, setShowpassError] = useState(false);
+    // const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         const userPhone = inputRef?.current.value;
 
-        if (data.password == data.passwordAgain) {
-            const user = { ...data, id: parseInt(usersList.length + 1).toString(), type: "login-user", phone: userPhone }
-            setShowpassError(false);
+        if (data) {
+            const user = { ...data, status: "login-user", phone: userPhone }
+            delete user["confirmPassword"]
 
-            axios.post('http://localhost:3001/users-login', user)
+            axios.post('http://localhost:5000/register', user)
                 .then(res => {
-                    //console.log(res);
-                    if (res.data) {
-                        navigate(`user-cabinet/${user.id}`, { state: { user } });
-                        console.log(res.data);
+                    console.log('res', res);
+                    closeLoginComp()
+                    onClose()
+                })
+                .catch(error => {
+                    if (error.response) {
+                        console.log('Server error:', error.response.data.msg)
 
-                    };
+                    }
+                })
 
-                });
-
-            closeLoginComp()
-            onClose()
         }
-        else {
-            setShowpassError(true);
-        }
-
 
     }
+
+
+
     return (
         <div className={styles.loginCard} style={{ display: closeLogin ? "flex" : "none" }}>
             <div className={styles.headRegistrCont}>
                 <button onClick={onClose} aria-hidden={false} className={styles.closeBtn}>
-                    <img inert='true' className={styles.closeImg} src={img} alt="" />
+                    <img className={styles.closeImg} src={img} alt="" />
                 </button>
-                <span inert='true' className={styles.textRegister}>Створіть кабінет</span>
+                <span
+                    className={styles.textRegister}>Створіть кабінет</span>
             </div>
 
             <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)}>
@@ -86,20 +76,20 @@ function LoginComp({ onClose }) {
                             pattern: {
                                 value: /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ]{2,20}$/,
                                 message: 'Введіть ім*я коректно'
-                            }, required: true
-                        })} required
+                            }, required: 'поле обов*язкове'
+                        })}
                     />
                     <input type="text" className={styles.inputName} aria-hidden={false} id="secondName" placeholder="Ваше прізвище"
                         {...register('secondName', {
                             pattern: {
                                 value: /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ]{2,20}$/,
                                 message: 'Введіть прізвище коректно'
-                            }, required: true
-                        })} required
+                            }, required: 'поле обов*язкове'
+                        })}
                     />
                 </div>
-                <p inert='true'>{errors.firstName?.message}</p>
-                <p inert='true'>{errors.secondName?.message}</p>
+                <p >{errors.firstName?.message}</p>
+                <p >{errors.secondName?.message}</p>
                 <input className={styles.inputContacts} aria-hidden={false} placeholder="Ваш номер телефону"
                     ref={inputRef} onChange={() => handleMusk} required />
 
@@ -112,43 +102,39 @@ function LoginComp({ onClose }) {
                         }, required: true
                     })
                     } required />
-                <p inert='true'>{errors.email?.message}</p>
+                <p >{errors.email?.message}</p>
 
                 <div className={styles.nameBlok}>
-                    <input type="password" className={styles.inputPassword} aria-hidden={false} placeholder="Пароль"
+                    <input type="password" className={styles.inputPassword}
+                        aria-hidden={false}
+                        placeholder="Пароль"
                         {...register('password', {
-                            // minLength: 6,
+                            minLength: { value: 6, message: 'Введіть пароль не менше 6 символів' },
                             pattern: {
-
                                 value: /^[A-Za-z\d]{6,}$/,
-                                message: 'Введіть пароль не менше 6 символів',
                             },
-                            //required: true
+                            required: 'поле обов*язкове'
                         })
                         }
-                        required
                     />
 
-                    <input type="password" className={styles.inputPassword} onChange={() => { setShowpassError(true) }} aria-hidden={false} placeholder="Пароль знову"
-                        {...register('passwordAgain', {
-
+                    <input type="password" className={styles.inputPassword} aria-hidden={false} placeholder="Пароль знову"
+                        {...register('confirmPassword', {
+                            minLength: { value: 6, message: 'Повторіть пароль не менше 6 символів' },
                             pattern: {
                                 value: /^[A-Za-z\d]{6,}$/,
-                                message: 'Повторіть пароль не менше 6 символів',
                             },
-                            //required: true
+                            required: 'поле обов*язкове',
+                            validate: (value) =>
+                                value === password || "Паролі не співпадають",
                         })
-
                         }
-                        required
                     />
 
                 </div>
-                <p inert='true'>{errors.password?.message}</p>
-                <p inert='true'>{errors.passwordAgain?.message}</p>
-                {showPassError ? <p>Паролі не співпадають</p> : null}
-                <p>{errors.password?.message}</p>
-                <p>{errors.passwordAgain?.message}</p>
+                <p >{errors.password?.message}</p>
+
+                <p>{errors.confirmPassword?.message}</p>
 
                 <div className={styles.rulesContainer}>
                     <input type="checkbox" aria-hidden={false} name="" id="checkRules" required />

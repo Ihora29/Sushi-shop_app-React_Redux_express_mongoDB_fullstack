@@ -6,12 +6,14 @@ import EnterComp from "../LoginComponents/EnterComp.jsx"
 import Basket from "./Basket.jsx";
 import Backdrop from '@mui/material/Backdrop';
 import WeCallComp from "./WeCallComp.jsx";
-import zIndex from "@mui/material/styles/zIndex.js";
+import axios from "axios";
 
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useParams } from "react-router-dom";
+
 import { PopUpCabinet } from "../user-cabinet/PopUpCabinet.jsx";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../redux/getUserSlice";
 
 function NavbarComp() {
     const [isOpen, setOpen] = useState(false);
@@ -20,29 +22,42 @@ function NavbarComp() {
     const [showCabinet, setShowCabinet] = useState(false);
     const location = useLocation();
     const { state } = location || {};
-    const isAuthUser = localStorage.getItem('isUserAuth');
-    // const isUserAdmin = localStorage.getItem('isUserAdmin');
+
+    const userLogin = useSelector((state) => state.getUser.user);
+
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchUser());
+
+
+    }, [dispatch]);
+
 
     const handleClick = (e) => {
         e.stopPropagation();
-        if (isAuthUser) {
+        setShowCabinet(false);
+        setOpenEnter(true);
+        // console.log('click', userLogin);
+
+
+        if (userLogin != null) {
             setShowCabinet(true);
             setOpenEnter(false)
-        } else {
+        }
+        else {
+
             setShowCabinet(false);
             setOpenEnter(true);
 
-        };
-        if (showCabinet) {
-            setShowCabinet(false);
         }
-
     };
 
     function closeBackDrop() {
         setOpenEnter(false)
         setShowBasket(false)
         setShowPhoneComp(false)
+
     };
 
     const [showBasket, setShowBasket] = useState(false);
@@ -52,11 +67,14 @@ function NavbarComp() {
     const [totalCount, setTotalCount] = useState(0);
     const [orderPrice, setOrderPrice] = useState(0);
 
+
     const checkBasket = () => {
         setShowBasket(!showBasket)
     }
 
+
     useEffect(() => {
+
         if (basket && basket.length > 0) {
             const totalOrderCount = basket.reduce((accumulator, item) => accumulator + item.totalCount, 0);
             const totalOrderSum = basket.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
@@ -132,7 +150,10 @@ function NavbarComp() {
                 <div onClick={openContact} className={styles.phoneContact}>
                     <div className={styles.blockPhone}>
                         <img className={styles.phoneImg} src="https://monosushi.com.ua/wp-content/uploads/2020/10/phone.svg" alt="" ></img>
-                        <span className={styles.weCall}>МИ ЗАТЕЛЕФОНУЄМО</span>
+                        <span className={styles.weCall}>
+                            МИ ЗАТЕЛЕФОНУЄМО
+
+                        </span>
                     </div>
                 </div>
 

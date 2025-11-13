@@ -3,21 +3,22 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../../styles/ErrorPage.module.css'
 
-export const OrderHistory = () => {
-    const isUserAuth = localStorage.getItem('isUserAuth') ? JSON.parse(localStorage.getItem('isUserAuth')) : null;
+const OrderHistory = () => {
+
 
     const [orderItems, setOrderItems] = useState([])
     useEffect(() => {
-        if (isUserAuth && isUserAuth.id) {
-            axios.get(`http://localhost:3001/users-login/${isUserAuth.id}`)
-                .then(response => {
 
-                    if (response.data.buyers) {
-                        setOrderItems(response.data.buyers);
-                    }
-                })
-                .catch(error => console.error("Помилка завантаження історії замовлень:", error));
-        }
+        axios.get('http://localhost:5000/add-order')
+            .then(response => {
+                //console.log(response.data);
+                const orderArr = response.data.flat(Infinity)
+                console.log(orderArr);
+
+
+            })
+            .catch(error => console.error("Помилка завантаження історії замовлень:", error));
+
     }, []);
 
 
@@ -33,3 +34,5 @@ export const OrderHistory = () => {
         </>
     )
 }
+
+export default OrderHistory

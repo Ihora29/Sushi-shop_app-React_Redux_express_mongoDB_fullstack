@@ -321,8 +321,8 @@
 
 .weCall {
     font-weight: bold;
-    font-size: 12px;
-    display: flex;
+    font-size: 0.8vw;
+
 }
 
 .workTime {
@@ -498,7 +498,7 @@
 
 .cabinetContainer {
     width: 19%;
-    height: 185px;
+    /* //  height: 185px; */
     border-bottom: 2px solid #8fcbff;
     border-left: 2px solid #8fcbff;
     border-right: 2px solid #8fcbff;
@@ -525,6 +525,10 @@
     text-align: center;
     position: relative;
     /* border-bottom: 2px solid #8fcbff; */
+}
+
+.itemListCabinet:hover {
+    cursor: pointer;
 }
 
 .listLinkItem {

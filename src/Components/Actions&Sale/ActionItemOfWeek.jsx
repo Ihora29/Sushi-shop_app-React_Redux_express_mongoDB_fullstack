@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../../styles/Actions.module.css'
 
 
-export const ActionItemOfWeek = () => {
+const ActionItemOfWeek = () => {
     return (
         <div className={styles.weekRollContainer}>
             <div className={styles.boxName}>
@@ -20,3 +20,6 @@ export const ActionItemOfWeek = () => {
         </div>
     )
 }
+
+
+export default ActionItemOfWeek

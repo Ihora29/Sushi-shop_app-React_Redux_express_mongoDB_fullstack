@@ -12,7 +12,7 @@ import { addToBasket } from "../redux/basketSlice";
 function CardSets() {
 
     const productsData = useSelector((state) => state.products.products);
-    const sets = productsData[1];
+    const sets = productsData.filter(item => item.type === "sets");
 
     const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ function CardSets() {
         if (sets) {
             setProdSets(sets);
         }
-    }, [sets]);
+    }, []);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -77,13 +77,13 @@ function CardSets() {
 
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    prodSets.map((item) => {
+                    sets.map((item) => {
 
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                                 <img src={item.imgSrc} className={styles.itemIcon} alt="" />
                                 <h2 className={styles.nameProduct}>{item.name}</h2>
-                                <div className={styles.itemOption}>{item.option}</div>
+                                {item.option ? <div className={styles.itemOption}>{item.option}</div> : null}
                                 <div className={styles.aboutProduct}>
                                     <p className={styles.itemProd}>{item.details}</p>
                                     <span className={styles.weightProduct}> Вага: {item.weight}</span>

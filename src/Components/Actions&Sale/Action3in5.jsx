@@ -3,7 +3,7 @@ import styles from '../../styles/Actions.module.css'
 
 
 
-export const Action3in5 = () => {
+const Action3in5 = () => {
     return (
         <div className={styles.container3in5}>
             <div className={styles.boxName}>
@@ -21,3 +21,5 @@ export const Action3in5 = () => {
         </div>
     )
 }
+
+export default Action3in5;

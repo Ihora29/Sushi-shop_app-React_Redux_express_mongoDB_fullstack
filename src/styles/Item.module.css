@@ -32,6 +32,7 @@
     height: 200px;
     margin-top: 100px;
 
+
 }
 
 h1 {
@@ -113,8 +114,10 @@ h1 {
     margin-bottom: 25px;
 }
 
+
+
 .carouselItem {
-    width: 290px;
+    width: 270px;
     height: 350px;
     border: 1px solid #b5d8f7;
     border-radius: 5px;
@@ -126,6 +129,7 @@ h1 {
 }
 
 .carouselPadding {
+
     padding: 6px;
 }
 
@@ -150,6 +154,13 @@ h1 {
     font-size: 22px
 }
 
+.nameAlsoProduct {
+    color: black;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 1.3vw
+}
+
 .itemOption {
     background-color: rgb(182, 41, 41);
     width: 50px;
@@ -159,6 +170,8 @@ h1 {
     margin: 10px 0 0 15px;
     text-align: center;
 }
+
+
 
 .aboutProduct {
     width: 100%;
@@ -222,7 +235,7 @@ h1 {
 
 .drinksContainer {
     display: flex;
-    width: 60%;
+    width: 100%;
     margin: 15px auto;
 
     padding: 0 40px;
@@ -313,9 +326,75 @@ h1 {
     transition: background-color 0.3s ease;
 }
 
+.textTAsteAlso {
+    margin: 30px auto;
+}
+
 .custom li button:focus {
     outline: none;
     background-color: rgba(102, 102, 216, 0.897);
+}
+
+.tryAlsoCont {
+    width: 80%;
+    height: 400px;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.alsoItem {
+    width: 19vw;
+    height: 90%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+}
+
+.alsoItem:hover {
+    cursor: pointer;
+    border-color: #7ab9f0;
+}
+
+.aboutAlsoProduct {
+
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+}
+
+.footAlsoItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    bottom: 10px;
+    position: absolute;
+
+}
+
+.itemAlsoImg {
+    width: 85%;
+    height: 100px;
+    object-fit: contain;
+    margin: 10px auto;
+}
+
+
+.btnAlsoBuyMini {
+    width: 5vw;
+    height: 40px;
+    font-size: 0.7vw;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    margin-top: 5px;
+    margin-right: 10px;
+    background-color: #b5d8f7;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -358,7 +437,7 @@ h1 {
     }
 
     .carouselPadding {
-
+        padding: 0 5px;
         width: 20%;
         display: flex;
         justify-content: center;
@@ -394,7 +473,8 @@ h1 {
     }
 
     .prodPrice {
-        font-size: 13px;
+        font-size: 1vw;
+        color: red;
     }
 
     .orderCount {
@@ -405,12 +485,22 @@ h1 {
     .btnBuyMini {
         width: 25%;
         height: 30px;
-        font-size: 9px;
+        font-size: 0.7vw;
         margin-left: 10px;
     }
 
     .footItem {
         justify-content: space-between;
+    }
+
+    .btnAlsoBuyMini {
+        font-size: 0.8vw;
+        margin-right: 10px;
+    }
+
+    .itemInfo {
+
+        margin-left: 25px;
     }
 
 }
@@ -478,10 +568,58 @@ h1 {
         position: relative;
     }
 
+    .itemPrice {
+        font-size: 3vw;
+        margin-top: 10px;
+    }
+
+    .tryAlsoCont {
+        width: 80%;
+        height: 1500px;
+
+        display: flex;
+        overflow: hidden;
+        justify-content: space-around;
+        flex-direction: column;
+        margin: 10px auto 0;
+    }
+
+    .textTAsteAlso {
+        margin: 80px auto 20px;
+    }
+
+    .alsoItem {
+        margin: 10px auto;
+        width: 45%;
+        height: 300px;
+        border: 2px solid red;
+    }
+
+    .btnAlsoBuyMini {
+        width: 6vw;
+        font-size: 0.8vw;
+        margin-right: 5px;
+    }
+
+    .nameAlsoProduct {
+        font-size: 1.7vw;
+    }
+
+    .itemAlsoImg {
+        width: 80%;
+        height: 70px;
+        object-fit: contain;
+        margin: 10px auto;
+    }
+
     .carouselContainer {
         width: 100%;
 
-        margin: 0 auto;
+        margin: 0 auto 0;
+    }
+
+    .textAlso {
+        margin: 0px auto 0;
     }
 
     .drinksContainer {

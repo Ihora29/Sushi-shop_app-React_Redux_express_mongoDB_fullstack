@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../../styles/Actions.module.css'
 import { NavLink } from 'react-router-dom'
 
-export default function Actions() {
+const Actions = () => {
     return (
         <div className={styles.actionMainCont}>
             <h1 className={styles.actionText}>Акції на суші</h1>
@@ -63,3 +63,5 @@ export default function Actions() {
         </div>
     )
 }
+
+export default Actions

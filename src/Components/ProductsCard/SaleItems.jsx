@@ -15,18 +15,12 @@ export const SaleItems = () => {
   const isUserAuth = JSON.parse(localStorage.getItem('isUserAuth'));
 
   const [countProduts, setCountProducts] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:3001/products')
-      .then(response => {
-
-        setCountProducts(response.data);
-      });
-
-
-
-  }, [])
 
   const productsData = useSelector((state) => state.products.products);
+  useEffect(() => {
+    setCountProducts(productsData);
+  }, [])
+
 
   const allProducts = productsData
     .filter((item) => item)

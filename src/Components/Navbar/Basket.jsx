@@ -35,7 +35,7 @@ export default function Basket() {
   }, [dispatch]);
 
 
-  const productsDrinks = mapbox.productsData[2] || [];
+  const productsDrinks = mapbox.productsData.slice(24, 28);
 
 
   useEffect(() => {
@@ -193,7 +193,7 @@ export default function Basket() {
             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.carouselDrinks}>
               <img src={item.imgSrc} className={styles.drinkImg} alt="" />
               <h2 className={styles.drinkName}>{item.name}</h2>
-              <div className={styles.itemOption}>{item.option}</div>
+              {item.option ? <div className={styles.itemOption}>{item.option}</div> : null}
               <div className={styles.aboutProduct}>
                 <span className={styles.weightProduct}> Вага:{item.weight}</span>
               </div>

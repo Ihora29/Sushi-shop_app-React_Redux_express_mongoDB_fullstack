@@ -13,11 +13,14 @@ import { Outlet } from 'react-router-dom';
 
 import styles from "../styles/ErrorPage.module.css";
 import closeImg from "../images/close-ellipse-svgrepo-com.svg";
+import axios from "axios";
+
 
 function AppLayout() {
 
     const location = useLocation();
     const { state } = location || {};
+
 
     return (
 
