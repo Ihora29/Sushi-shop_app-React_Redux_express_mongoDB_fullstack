@@ -38,7 +38,7 @@
 .textTryAlways {
     color: black;
     margin-top: 15px;
-    text-align: start;
+    text-align: center;
     font-size: 22px;
     margin-bottom: 15px;
 }
@@ -163,13 +163,16 @@
     font-size: 22px;
 }
 
+
+
 .carouselDrinks {
     width: 90%;
     height: 200px;
     color: black;
-
+    position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     text-decoration: none;
     border: 1px solid #b5d8f7;
     border-radius: 5px;
@@ -184,7 +187,7 @@
 }
 
 .drinkName {
-    font-size: 18px;
+    font-size: 12px;
     /* text-decoration: none; */
     text-align: center;
     margin-top: 5px;
@@ -198,32 +201,48 @@
 
 .prodPrice {
     width: 50%;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     margin-left: 10px;
 }
 
 .weightProduct {
     width: 50%;
-    font-size: 12px;
+    font-size: 10px;
     display: flex;
-    margin-left: 20px;
+    margin: 0 0 30px 20px;
+}
+
+.itemOption {
+    border: 1px solid black;
+    width: 25%;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 10px;
+    margin: 0px 0 0px 20px;
+    background-color: rgb(182, 41, 41);
+    color: white;
+    padding-bottom: 2px;
 }
 
 .footItem {
-    margin-top: 10px;
+    position: absolute;
     width: 100%;
+    bottom: 3px;
     display: flex;
+
     justify-content: space-around;
 }
 
 .btnBuyMini {
     width: 60px;
     height: 25px;
-    font-size: 8px;
+    font-size: 7px;
     border-radius: 5px;
     border: none;
-
+    /* position: absolute;
+    bottom: 0;
+    right: 0; */
     font-weight: bold;
     background-color: #b5d8f7;
     color: black;
@@ -231,10 +250,10 @@
 }
 
 .trashPic {
-    width: 50px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    right: 130px;
+    right: 135px;
 }
 
 .trashPic {
@@ -282,7 +301,7 @@
     .trashPic {
         width: 35px;
         height: 25px;
-        right: 105px;
+        right: 120px;
 
     }
 
@@ -344,7 +363,7 @@
     .trashPic {
         width: 25px;
         height: 20px;
-        right: 90px;
+        right: 70px;
 
     }
 

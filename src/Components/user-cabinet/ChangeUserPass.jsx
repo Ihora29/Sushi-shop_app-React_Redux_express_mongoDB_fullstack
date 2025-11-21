@@ -7,137 +7,100 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Backdrop from '@mui/material/Backdrop';
 import img from "../../images/close-ellipse-svgrepo-com.svg"
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../redux/getUserSlice';
+import { fetchUser } from '../redux/getUserSlice';
 
-export const ChangeUserPass = () => {
-    //   const location = useLocation();
-    //  const { state } = location || {};
-    const { id } = useParams();
+
+const ChangeUserPass = () => {
+
     const navigate = useNavigate();
-    const [userPass, setUserPass] = useState({
-        id: id,
-        firstName: '',
-        secondName: '',
-        email: '',
-        phone: '',
-        password: '',
-        passwordAgain: ''
-    });
 
+    const userAuth = useSelector((state) => state.getUser.user);
+    //  console.log(userAuth);
 
+    const dispatch = useDispatch();
     useEffect(() => {
+        dispatch(fetchUser());
+    }, [dispatch]);
 
-        axios.get('http://localhost:3001/users-login?id=' + id)
-            .then(response => {
-                //  console.log(response.data[0]);
-                const dataValue = response.data[0];
-                setUserPass({
-                    ...userPass, password: dataValue.password, firstName: dataValue.firstName, secondName: dataValue.secondName,
-                    email: dataValue.email, phone: dataValue.phone, passwordAgain: dataValue.password
-                });
-            })
-            .catch(errors => console.log(errors)
-            )
-    }, [])
 
 
     const { register, reset, watch,
-        handleSubmit, formState: { errors } } = useForm(
-            {
-                defaultValues: {
-                    password: userPass?.password || '',
+        handleSubmit, formState: { errors } } = useForm({ mode: "onChange" });
 
-                },
-            }
-        );
 
     const [passIdentError, setPassIdentError] = useState(false);
     const [showCabinetPop, setShowcabinetPop] = useState(false);
+    // const [messagePassError, setMessagePassError]=useState('')
+    const password = watch("password");
 
-    const onSubmit = (data) => {
-        if (data.passwordNew == data.passwordAgain) {
-            setPassIdentError(false);
-            const userData = {
-                ...userPass,
-                type: "login-user",
-                password: data.passwordAgain,
-                passwordAgain: data.passwordAgain
+    const onSubmit = async (data) => {
+        //  setShowcabinetPop(true);
+        if (data.password === data.confirmPassword && data.oldPassword != '') {
+            delete data['confirmPassword'];
+            try {
+                const result = await axios.patch('http://localhost:5000/change-password', data, { withCredentials: true })
+                console.log(result);
+
+                setShowcabinetPop(true);
+            } catch (error) {
+                // setPassIdentError(!passIdentError)
+                // setMessagePassError(error.response.data.message)
+                console.log(error.response.data.message);
+                const errMsg = error.response.data.message
+                return errMsg
             }
-
-            setUserPass(userData)
-            axios.patch(`http://localhost:3001/users-login/${id}`, userData)
-                .then(response => console.log(response.data))
-                .catch(error => {
-                    if (error.response) {
-                        console.error('Status:', error.response.status);
-                        console.error('Data:', error.response.data);
-                    } else {
-                        console.error('Error:', error.message);
-                    }
-                });
-            setShowcabinetPop(true);
-            // navigate(`/`,
-            //     //    { state: { userPass } }
-            // )
-        } else {
-            setPassIdentError(true)
         }
-        console.log(userPass);
 
-    }
-    const handleChange = (e) => {
-        if (e.target.value != userPass.passwordNew) {
-            setPassIdentError(true)
-        }
 
     }
 
-    useEffect(() => {
-        console.log('render UserName');
-        if (userPass?.password) {
-            reset({
-                password: userPass.password,
-                // secondName: userEdit.secondName,
-                // email: userEdit.email,
-                // phone: userEdit.phone,
-            });
-        }
-    }, [userPass, reset])
 
     return (
         <div className={styles.mainContainer}>
             <div className={styles.passContainer}>
                 <h1 style={{ textAlign: 'center' }}>Зміна паролю </h1>
                 <form className={styles.ChangePassForm} onSubmit={handleSubmit(onSubmit)}>
-                    <input type="text" className={styles.inputNameParams}
-                        {...register('password', {
+                    <input type="password" className={styles.inputNameParams}
+                        {...register('oldPassword', {
+                            minLength: { value: 6, message: 'Введіть пароль не менше 6 символів' },
                             pattern: {
                                 value: /^[A-Za-z\d]{6,}$/,
-                                message: 'Введіть пароль коректно'
-                            }, required: true
-                        })} required
-                        placeholder='Ваш пароль' />
-                    <p inert='true'>{errors.password?.message}</p>
+                            },
+                            required: 'поле обов*язкове'
+                        })
+                        }
+                        placeholder='Ваш старий пароль' />
+                    <p >{errors.oldPassword?.message}</p>
                     <input type="password"
-                        {...register('passwordNew', {
+                        {...register('password', {
+                            minLength: { value: 6, message: 'Введіть пароль не менше 6 символів' },
                             pattern: {
                                 value: /^[A-Za-z\d]{6,}$/,
-                                message: 'Введіть пароль коректно'
-                            }, required: true
-                        })} required
+                            },
+                            required: 'поле обов*язкове'
+                        })
+                        }
                         className={styles.inputNameParams} placeholder='Новий пароль*' />
 
                     <input type="password" className={styles.inputNameParams}
-                        {...register('passwordAgain', {
+                        {...register('confirmPassword', {
+                            minLength: { value: 6, message: 'Повторіть пароль не менше 6 символів' },
                             pattern: {
                                 value: /^[A-Za-z\d]{6,}$/,
-                                message: 'Введіть пароль коректно'
-                            }, required: true
-                        })} required
-                        onChange={handleChange}
+                            },
+                            required: 'поле обов*язкове',
+                            validate: (value) =>
+                                value === password || "Паролі не співпадають",
+                        })
+                        }
+                        // onChange={handleChange}
                         placeholder='Повторіть пароль*' />
-                    <p inert='true'>{errors.passwordNew?.message}</p>
-                    <p inert='true'>{errors.passwordAgain?.message}</p>
-                    {passIdentError ? <p>Паролі не співпадають</p> : null}
+
+                    <p >{errors.password?.message}</p>
+                    <p >{errors.confirmPassword?.message}</p>
+                    {/* {passIdentError ? <p>Паролі не співпадають</p> : null} */}
                     <div className={styles.saveButtonsGroup}>
                         <button className={styles.buttonsParamsStyle}>Скасувати</button>
                         <input type="submit" value='Зберегти зміни' className={styles.buttonsParamsStyle} />
@@ -159,3 +122,5 @@ export const ChangeUserPass = () => {
         </div>
     )
 }
+
+export default ChangeUserPass;

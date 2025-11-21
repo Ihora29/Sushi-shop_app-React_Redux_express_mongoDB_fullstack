@@ -17,12 +17,12 @@ function EnterComp({ onClose }) {
 
     const [usersData, setUsersData] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/users-login')
-            .then(response => {
-                setUsersData(response.data);
-            });
-    }, [])
+    // useEffect(() => {
+    //     // axios.get('http://localhost:3001/users-login')
+    //     //     .then(response => {
+    //     //         setUsersData(response.data);
+    //     //     });
+    // }, [])
 
 
 
@@ -38,20 +38,41 @@ function EnterComp({ onClose }) {
 
     const onSubmit = async (data) => {
 
-        if (usersData) {
-            const user = usersData.find(user => user.email === data.email && user.password === data.password);
-            if (user) {
-                localStorage.setItem('isUserAuth', JSON.stringify(user));
-                navigate('/');
-                onClose();
-            }
-            setShowErrorAuth(true);
-        }
+        if (data) {
+            axios.post('http://localhost:5000/login', data)
+                .then(res => {
+                    navigate('/user-cabinet/');
+                    if (res.data.error) {
+                        console.error('Помилка від сервера:', res.data.error);
+                    } else {
+                        console.log('Успішно:', res.data);
+                    }
+                })
+                .catch(error => {
+
+                    if (error.response) {
+
+                        console.error('Помилка відповіді сервера:', error.response.data);
+                        console.error('Статус:', error.response.status);
+                    } else if (error.request) {
+
+                        console.error('Помилка запиту: відповідь не отримана', error.request);
+                    } else {
+
+                        console.error('Помилка:', error.message);
+                    }
+                })
 
 
-    };
 
 
+            onClose();
+        };
+
+
+
+
+    }
 
 
 
@@ -88,7 +109,7 @@ function EnterComp({ onClose }) {
                             }, required: true
                         })} required
                         placeholder="Password" />
-                    <p inert='true'>{errors.password?.message}</p>
+                    <p >{errors.password?.message}</p>
                     {showErrorAuth ? <p>Ви не зареєстровані,зареєструватися?</p> : null}
                     <input type="submit" value='Увійти' className={styles.enterBtn} />
                     <div className={styles.footContainer}>

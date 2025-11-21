@@ -9,8 +9,8 @@ import { addToBasket } from "../redux/basketSlice";
 
 function CardSushi() {
 
-    const productsData = useSelector((state) => state.products.products); //
-    const sushi = productsData[0];
+    const productsData = useSelector((state) => state.products.products);
+    const sushi = productsData.filter(item => item.type === "sushi");;
 
     const [prodSushi, setProdSushi] = useState([]);
 
@@ -24,7 +24,7 @@ function CardSushi() {
         if (sushi) {
             setProdSushi(sushi);
         }
-    }, [sushi]);
+    }, []);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -74,13 +74,13 @@ function CardSushi() {
             <h1 className={styles.nameCard}>Суші</h1>
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    prodSushi.map((item) => {
+                    sushi.map((item) => {
 
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                                 <img src={item.imgSrc} className={styles.itemIcon} alt="" />
                                 <h2 className={styles.nameProduct}>{item.name}</h2>
-                                <div className={styles.itemOption}>{item.option}</div>
+                                {item.option ? <div className={styles.itemOption}>{item.option}</div> : null}
                                 <div className={styles.aboutProduct}>
                                     <p className={styles.itemProd}>{item.details}</p>
                                     <span className={styles.weightProduct}> Вага: {item.weight}</span>

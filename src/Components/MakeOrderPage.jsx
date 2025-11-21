@@ -6,7 +6,7 @@ import imgTrash from '../images/reshot-icon-trash-2ZNJ9PUBQL.svg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from './redux/getProductsSlice';
-
+import { fetchUser } from './redux/getUserSlice';
 import { removeFromBasket } from './redux/basketSlice';
 import Map from './map/Map';
 import { PopUpDelivery } from './popUp/PopUpDelivery';
@@ -14,12 +14,21 @@ import { useForm } from 'react-hook-form';
 import { useMask } from '@react-input/mask';
 import { CheckForBuy } from './popUp/CheckForBuy';
 import { Backdrop } from '@mui/material';
-export const MakeOrderPage = () => {
+import axios from 'axios';
 
+const MakeOrderPage = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchProducts());
+        dispatch(fetchUser())
+    }, [dispatch]);
+    const productsData = useSelector((state) => state.products.products);
+    const userAuth = useSelector((state) => state.getUser.user);
     const basket = useSelector((state) => state.basketItems.basketItems);
-    const isUserAuth = localStorage.getItem('isUserAuth');
-    const [address, setAddress] = useState('Львів, Україна');
 
+    const [address, setAddress] = useState('Львів, Україна');
 
     const [clientDelivery, setClientDelivery] = useState({});
     const [showCheck, setShowCheck] = useState(false);
@@ -27,44 +36,54 @@ export const MakeOrderPage = () => {
 
     const onSubmit = async (data) => {
         const phoneValue = inputRef.current?.value;
-        const userDeliver = { ...data, phone: phoneValue }
-        setClientDelivery(userDeliver)
-        if (orderItem.length > 0) {
-            setShowCheck(true);
+        //  const userDeliver = { ...data, phone: phoneValue };
+
+        console.log('data', data);
+        console.log(phoneValue);
+
+
+        if (data.name == userAuth.firstName && phoneValue == userAuth.phone && basket.length > 0) {
+            const orderBasket = basket.map(({ id, details, ...rest }) => rest);
+            const userOrder = {
+                name: data.name,
+                phone: phoneValue,
+                orders: orderBasket,
+                totalPrice: totalSum
+            }
             try {
-                const response = await fetch(`http://localhost:3001/users-login/${JSON.parse(isUserAuth).id}`, {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ buyers: orderItem }),
-                });
+                const result = await axios.post('http://localhost:5000/add-order', userOrder)
+                console.log(result);
+
+            } catch (error) {
+                console.log(error);
             }
-            catch (error) {
-                console.error("Помилка:", error);
-            }
+
+        } else {
+            console.log('false');
+
         }
-
-
-
-        //navigate('/client-check')
-
+        //setClientDelivery(userDeliver)
+        // if (orderItem.length > 0) {
+        //     setShowCheck(true);
+        // }
     };
 
-    const dispatch = useDispatch();
+
+    const [motiItem, setMotiItem] = useState(null);
+
+
+
 
     useEffect(() => {
-        dispatch(fetchProducts());
-    }, [dispatch]);
-
-    const productsData = useSelector((state) => state.products.products);
+        if (productsData.length > 0) {
+            setMotiItem(productsData[10]);
+        }
+    }, [productsData]);
 
     const [showHelpMessage, setShowHelpMessage] = useState(true);
 
     const handleCloseMessage = () => {
-        setShowHelpMessage(false);
-
-
+        setShowHelpMessage(false)
     };
 
     const { register,
@@ -72,15 +91,14 @@ export const MakeOrderPage = () => {
         watch } = useForm();
 
     const inputRef = useMask({
-        mask: '+38 (0__) ___ __ __',
+        mask: '380_________',
         showMask: false,
         replacement: { _: /\d/ },
     });
 
     const handleMusk = () => {
         inputRef.showMask = true;
-    }
-
+    };
     // const location = useLocation();
     // const { state } = location;
 
@@ -97,6 +115,7 @@ export const MakeOrderPage = () => {
 
     useEffect(() => {
         setOrderItem(basket)
+        console.log(basket);
 
     }, [basket]);
 
@@ -184,7 +203,7 @@ export const MakeOrderPage = () => {
                             )
 
                         }) : <div className={styles.emptyContainer}>
-                            <h5>Немає в корзині продуктів</h5>
+                            <h3 style={{ textAlign: 'center' }}>Немає в корзині продуктів</h3>
                             <NavLink to='/' className={styles.menuLink}>  <img className={styles.emptyPicLink} src="https://monosushi.com.ua/wp-content/themes/monosushi/img/icons/cart-empty-img.svg" alt="" /> </NavLink>
                             <span className={styles.textClickOnMe}>Клікни на мене,щоб обрати <b>МЕНЮ</b>!</span>
 
@@ -194,15 +213,23 @@ export const MakeOrderPage = () => {
                                 style={{ paddingBottom: '3px', fontSize: '23px' }}><b>{totalSum}</b> </span> <span style={{ paddingTop: '3px' }}>грн.</span>
                         </div>
                     </div>
-                    <h4>Може солоденького?</h4>
+                    <h4 style={{ textAlign: 'center' }}>Може солоденького?</h4>
 
                     <div style={{ margin: '20px auto' }}>
 
-                        {productsData[3]?.map((item, index) => index < 1 ? <NavLink className={styles.motiContainer} to={`/product/${item.id}`} key={index}>
-                            <img className={styles.motiPicture} src={item.imgSrc} alt="" />
-                            <h4>{item.name}</h4>
-                            <span className={styles.motiPrice}><b> {item.price}</b>  грн.</span>
-                        </NavLink> : null)}
+
+                        {motiItem ? <NavLink
+                            className={styles.motiContainer}
+                            to={`/product/${motiItem.id}`}
+
+                        >
+                            <img className={styles.motiPicture} src={motiItem.imgSrc} alt={motiItem.name} />
+                            <h4 style={{ textAlign: 'center', color: 'black' }}>{motiItem.name}</h4>
+                            <span className={styles.motiPrice}>
+                                <b>{motiItem.price}</b> грн.
+                            </span>
+                        </NavLink> : null}
+
 
                     </div>
 
@@ -250,7 +277,6 @@ export const MakeOrderPage = () => {
                                     <div className={styles.checkContainer}>
                                         <input   {...register("payCash")}
 
-
                                             type="checkbox" /> <span style={{ fontSize: '18px' }}><b>Оплата готівкою</b></span>
                                     </div>
                                     <div className={styles.checkContainer}>
@@ -283,8 +309,12 @@ export const MakeOrderPage = () => {
                                 <div className={styles.homeContainer}>
 
                                     <div className={styles.deliveryPlaceContainer}>
-                                        <input className={styles.homeInput} type="text" {...register('name')} required placeholder='Ваше ім*я' />
-                                        <input className={styles.homeInput} type="text" {...register('street')} required placeholder='Вулиця' />
+                                        <input className={styles.homeInput} type="text" {...register('name')}
+                                            required
+                                            placeholder='Ваше ім*я' />
+                                        <input className={styles.homeInput} type="text" {...register('street')}
+                                            //required
+                                            placeholder='Вулиця' />
                                         <input className={styles.homeInput} type="text" {...register('entrance', {
                                             pattern: {
                                                 value: /^\d+$/,
@@ -295,12 +325,16 @@ export const MakeOrderPage = () => {
 
                                     <div className={styles.deliveryPlaceContainer}>
                                         <input className={styles.homeInput} type="text" ref={inputRef}
-                                            onChange={() => handleMusk} placeholder='Ваш номер телефону' required />
+                                            onChange={() => handleMusk} placeholder='Ваш номер телефону 380__'
+                                            required
+                                        />
                                         <input className={styles.homeInput} type="text" {...register('house', {
                                             pattern: {
                                                 value: /^\d+$/,
                                             }
-                                        })} required placeholder='Номер будинку' />
+                                        })}
+                                            //    required
+                                            placeholder='Номер будинку' />
                                         <input className={styles.homeInput} type="text" {...register('apartment', {
                                             pattern: {
                                                 value: /^\d+$/,
@@ -346,3 +380,7 @@ export const MakeOrderPage = () => {
 
     )
 }
+
+
+
+export default MakeOrderPage;

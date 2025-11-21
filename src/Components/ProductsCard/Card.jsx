@@ -1,5 +1,5 @@
 import React from 'react'
-import NavbarComp from '../Navbar/NavbarComp'
+import { fetchProducts } from "../redux/getProductsSlice";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styles from "../../styles/Item.module.css"
@@ -16,44 +16,35 @@ import axios from 'axios';
 export default function Card() {
 
     const { id } = useParams();
-
-
     const dispatch = useDispatch();
+    const productsData = useSelector((state) => state.products.products);
 
-
-
-    // const productsData = useSelector((state) => state.products.products);
-    // console.log(productsData);
-
-    const [productsArr, setProductsArr] = useState([]);
     const [drinkCount, setDrinkCount] = useState([]);
     const [arrayWithoutDrinks, setArrayWithoutDrinks] = useState([]);
-
-    const [localItem, setLocalItem] = useState({
-        totalCount: 1
-    });
-
+    const item = productsData?.find((item) => item.id === parseInt(id));
 
     useEffect(() => {
-        axios.get('http://localhost:3001/products').then((resp) => {
-            const data = resp.data;
-            setProductsArr(data);
-        });
-
-    }, [id]);
-
-    const allProducts = productsArr?.filter((item) => item)
-        .reduce((acc, curr) => acc.concat(curr), []);
-
-    const item = allProducts?.find((item) => item.id === parseInt(id));
-
+        dispatch(fetchProducts());
+    }, [dispatch]);
+    const [localItem, setLocalItem] = useState({});
+    const tasteAlso = productsData?.slice(0, 4);
+    const drinkArray = productsData?.slice(24, 28);
     useEffect(() => {
-        const drinkArray = productsArr[2]?.slice(0, 2);
-        const productsWithotDrinks = allProducts?.slice(0, 5);
         setLocalItem(item);
-        setDrinkCount(drinkArray);
-        setArrayWithoutDrinks(productsWithotDrinks);
-    }, [productsArr]);
+        // console.log('item render', drinkCount);
+        setArrayWithoutDrinks(tasteAlso);
+        setDrinkCount(drinkArray)
+    }, [productsData]);
+
+
+
+    // useEffect(() => {
+    //     const drinkArray = productsData?.slice(24, 28);
+    //     const productsWithotDrinks = allProducts?.slice(0, 5);
+
+    //     
+    //     setArrayWithoutDrinks(productsWithotDrinks);
+    // }, [productsArr]);
 
 
     const handleDecrement = (id, e) => {
@@ -163,35 +154,19 @@ export default function Card() {
                 </div>
             </div>
 
-            <h1 className={styles.textAlso}>Спробуйте також</h1>
-            <Carousel className={styles.Carousel} swipeable={true}
-                draggable={false}
-                showDots={true}
-                responsive={responsive}
-                ssr={true}
-                infinite={true}
-                autoPlay={true}
-                autoPlaySpeed={4000}
-                keyBoardControl={true}
-                customTransition="all 1s"
-                transitionDuration={1000}
-                shouldBlockScroll={false}
-                containerClass={styles.carouselContainer}
-                removeArrowOnDeviceType={["tablet", "mobile", "desktop", "superLargeDesktop"]}
-                dotListClass={styles.custom}
-                itemClass={styles.carouselPadding}
-            >
+            <h1 className={styles.textTAsteAlso}>Спробуйте також</h1>
+            <div className={styles.tryAlsoCont}>
                 {arrayWithoutDrinks?.map((item) => {
                     return (
-                        <NavLink to={`/product/${item.id}`} key={item.id} className={styles.carouselItem}>
-                            <img src={item.imgSrc} className={styles.itemImg} alt="" />
-                            <h2 className={styles.nameProduct}>{item.name}</h2>
+                        <NavLink to={`/product/${item.id}`} key={item.id} className={styles.alsoItem}>
+                            <img src={item.imgSrc} className={styles.itemAlsoImg} alt="" />
+                            <h2 className={styles.nameAlsoProduct}>{item.name}</h2>
                             <div className={styles.itemOption}>{item.option}</div>
-                            <div className={styles.aboutProduct}>
+                            <div className={styles.aboutAlsoProduct}>
                                 <p className={styles.itemProd}>{item.details}</p>
                                 <span className={styles.weightProduct}> <b>Вага:</b>{item.weight}</span>
                             </div>
-                            <div className={styles.footItem}>
+                            <div className={styles.footAlsoItem}>
                                 <span className={styles.prodPrice}>{item.price * item.totalCount} грн.</span>
                                 <div className={styles.orderCount}>
                                     <button className={styles.btnOrder}
@@ -202,47 +177,62 @@ export default function Card() {
                                 </div>
                                 <button
                                     onClick={(e) => handleAddBasket(e, item)}
-                                    className={styles.btnBuyMini}>ЗАМОВИТИ</button>
+                                    className={styles.btnAlsoBuyMini}>ЗАМОВИТИ</button>
                             </div>
                         </NavLink>
                     );
                 })}
-            </Carousel>
+            </div>
+
+
 
 
             <h1 className={styles.textAlso}>Смакує разом</h1>
             <div className={styles.drinksContainer}>
-                {productsArr && productsArr.length > 0 ? (
-                    drinkCount?.map((item) => {
+                <Carousel className={styles.Carousel} swipeable={true}
+                    draggable={false}
+                    showDots={true}
+                    responsive={responsive}
+                    ssr={true}
+                    infinite={true}
+                    autoPlay={true}
+                    autoPlaySpeed={4000}
+                    keyBoardControl={true}
+                    customTransition="all 1s"
+                    transitionDuration={1000}
+                    shouldBlockScroll={false}
+                    containerClass={styles.carouselContainer}
+                    removeArrowOnDeviceType={["tablet", "mobile", "desktop", "superLargeDesktop"]}
+                    dotListClass={styles.custom}
+                    itemClass={styles.carouselPadding}
+                >
+                    {drinkCount?.map((item) => {
                         return (
-                            <NavLink to={`/product/${item.id}`} key={item.id} className={styles.drink_Item}>
-                                <img src={item.imgSrc} className={styles.drinkImg} alt="" />
-                                <h2 className={styles.nameDrink}>{item.name}</h2>
+                            <NavLink to={`/product/${item.id}`} key={item.id} className={styles.carouselItem}>
+                                <img src={item.imgSrc} className={styles.itemImg} alt="" />
+                                <h2 className={styles.nameProduct}>{item.name}</h2>
+                                <div className={styles.itemOption}>{item.option}</div>
                                 <div className={styles.aboutProduct}>
                                     <p className={styles.itemProd}>{item.details}</p>
-                                    <span className={styles.weightProduct}> Вага:{item.weight}</span>
+                                    <span className={styles.weightProduct}> <b>Вага:</b>{item.weight}</span>
                                 </div>
-                                <div className={styles.footDrink}>
-                                    <span className={styles.drinkPrice}>{item.price} грн.</span>
-                                    <div className={styles.orderDrink}>
+                                <div className={styles.footItem}>
+                                    <span className={styles.prodPrice}>{item.price * item.totalCount} грн.</span>
+                                    <div className={styles.orderCount}>
                                         <button className={styles.btnOrder}
                                             onClick={(e) => handleDecrement(item.id, e)}
                                         >-</button>
                                         <span className={styles.count}>{item.totalCount}</span>
-                                        <button className={styles.btnOrder}
-                                            onClick={(e) => handleIncrement(item.id, e)}
-                                        >+</button>
+                                        <button className={styles.btnOrder} onClick={(e) => handleIncrement(item.id, e)}>+</button>
                                     </div>
                                     <button
                                         onClick={(e) => handleAddBasket(e, item)}
-                                        className={styles.btnBuyDrink}>ЗАМОВИТИ</button>
+                                        className={styles.btnBuyMini}>ЗАМОВИТИ</button>
                                 </div>
                             </NavLink>
-
-                        )
-                    }
-                    )) : (<h1>No products available</h1>)}
-
+                        );
+                    })}
+                </Carousel>
             </div>
 
             <CardFooter />

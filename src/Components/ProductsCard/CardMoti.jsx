@@ -10,7 +10,8 @@ import { addToBasket } from "../redux/basketSlice";
 function CardMoti() {
 
     const productsData = useSelector((state) => state.products.products); //
-    const moti = productsData[3];
+
+    const moti = productsData.filter(item => item.type === "moti");
 
     const dispatch = useDispatch();
 
@@ -24,7 +25,7 @@ function CardMoti() {
         if (moti) {
             setProdMoti(moti);
         }
-    }, [moti]);
+    }, []);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -74,12 +75,12 @@ function CardMoti() {
 
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    prodMoti.map((item) => {
+                    moti.map((item) => {
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                                 <img src={item.imgSrc} className={styles.itemIcon} alt="" />
                                 <h2 className={styles.nameProduct}>{item.name}</h2>
-                                <div className={styles.itemOption}>{item.option}</div>
+                                {item.option ? <div className={styles.itemOption}>{item.option}</div> : null}
                                 <div className={styles.aboutProduct}>
                                     <p className={styles.itemProd}>{item.details}</p>
                                     <span className={styles.weightProduct}> Вага: {item.weight}</span>

@@ -1,7 +1,9 @@
 import React from 'react'
 import styles from '../../styles/Actions.module.css'
 
-export const ActionTakeYourself = () => {
+
+
+const ActionTakeYourself = () => {
     return (
         <div style={{ width: "100vh", margin: '150px auto' }}>
             <div className={styles.boxName}>
@@ -23,3 +25,6 @@ export const ActionTakeYourself = () => {
         </div>
     )
 }
+
+
+export default ActionTakeYourself

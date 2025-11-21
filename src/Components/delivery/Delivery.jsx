@@ -18,7 +18,7 @@ function Delivery() {
 
             <div className={styles.sect3}>
                 <img className={styles.deliveryPictures3} src="https://monosushi.com.ua/wp-content/uploads/2020/10/mono-bonus.svg" alt="" ></img>
-                <span className={styles.deliveryDescr}>Наш графік роботи: 11:00 до 22:30</span>
+                <span className={styles.deliveryDescr}>Наш графік роботи: 11:00 до 23:00</span>
             </div>
 
         </div>

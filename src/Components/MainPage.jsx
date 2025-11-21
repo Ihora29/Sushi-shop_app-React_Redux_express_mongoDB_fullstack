@@ -10,34 +10,20 @@ import { CircularProgress } from '@mui/material'
 import { Backdrop } from '@mui/material'
 import styles from "../styles/ErrorPage.module.css";
 import closeImg from "../images/close-ellipse-svgrepo-com.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from './redux/getUserSlice';
+import { logout } from './redux/getUserSlice'
 
-// import { useDispatch, useSelector } from "react-redux";
-// import { loginUser } from "./authSlice";
 
 function MainPage() {
-
-    const [loadingProgress, setLoadingProgress] = useState(false);
 
     const location = useLocation();
     const { state } = location || {};
 
-    const handleClosePopUp = (e) => {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        setShowWorkPopUp(false);
-
-    }
-
-    const [showWorkPopUp, setShowWorkPopUp] = useState(false);
-
-
-
     useEffect(() => {
 
         const checkWorkTime = () => {
-            //  console.log(currentHour);
+
             const date = new Date();
             const currentHour = date.getHours();
             if (currentHour >= 18 || currentHour < 11) {
@@ -53,11 +39,32 @@ function MainPage() {
         };
         checkWorkTime();
         const interval = setInterval(checkWorkTime, 1800000);
-
         return () => clearInterval(interval);
 
 
     }, [])
+
+
+    // const isUserAuth = useSelector((state) => state.getUser.user);
+    // // console.log(isUserAuth);
+
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(fetchUser());
+    // }, [dispatch]);
+
+
+    const handleClosePopUp = (e) => {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setShowWorkPopUp(false);
+
+    }
+
+    const [showWorkPopUp, setShowWorkPopUp] = useState(false);
+
 
 
     return (
@@ -70,7 +77,7 @@ function MainPage() {
                         <img src={closeImg} className={styles.closePopUpPic} alt="" onClick={(e) => handleClosePopUp(e)} />
                         <img className={styles.popUpPic} src="https://monosushi.com.ua/wp-content/themes/monosushi/img/error-monosushi.svg" alt="" />
                         <h6 className={styles.popuph5}>Вибачте, але замовлення не доступні</h6>
-                        <p><strong>Чекаємо</strong> на Вас щодня з <strong>11:00</strong> <strong>23:00</strong></p>
+                        <p><strong>Чекаємо</strong> на Вас щодня з <strong>11:00-</strong><strong>18:00</strong></p>
                     </div>
                 </Backdrop>
 

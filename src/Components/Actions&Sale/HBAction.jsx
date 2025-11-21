@@ -31,3 +31,5 @@ export const HBAction = () => {
         </div>
     )
 }
+
+export default HBAction;
