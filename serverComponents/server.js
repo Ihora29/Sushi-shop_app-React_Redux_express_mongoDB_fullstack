@@ -34,75 +34,7 @@ mongoose.connect(process.env.mongoConnect)
     .then(() => console.log('✅ MongoDB connected'))
     .catch(err => console.error('err=>', err));
 
-// app.get('/', (req, res) => {
-//     res.end('hello from server!')
-// });
 
-// const schemaValidReg = Joi.object({
-//     firstName: Joi.string().trim().min(2).max(20),
-//     secondName: Joi.string().trim().min(2).max(20),
-//     email: Joi.string().email().required(),
-//     password: Joi.string().min(6).required(),
-//     status: Joi.string().valid('login-user', 'admin-user').default('login-user'),
-//     phone: Joi.string()
-// })
-
-// const middlRegUser = async (req, res, next) => {
-
-//     if (!req.body || Object.keys(req.body).length === 0) {
-//         // console.log("без боді");
-//         return res.status(400).json({ message: 'bad request' })
-
-//     }
-//     const { error, value } = schemaValidReg.validate(req.body, { abortEarly: false });
-//     if (error) {
-//         console.log('error in valid');
-//         return res.status(400).send(error.message)
-//     }
-//     try {
-//         const isUserExist = await UserModel.findOne({ email: req.body.email });
-//         if (isUserExist) return res.status(400).json({ msg: "User already exists" });
-//         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-//         req.body.password = hashedPassword;
-//         next()
-//     }
-//     catch (error) {
-//         return res.status(500).json({ error: error.message });
-//     }
-
-// }
-
-// const schemaValidLogin = Joi.object({
-//     email: Joi.string().email().required(),
-//     password: Joi.string().min(6).required()
-// })
-
-// const middleLogUser = async (req, res, next) => {
-//     if (!req.body || Object.keys(req.body).length === 0) {
-//         // console.log("без боді");
-//         return res.status(401).json({ message: 'user Unauthorized' })
-
-//     }
-//     const { error, value } = schemaValidLogin.validate(req.body, { abortEarly: false });
-
-//     if (error) {
-//         console.log('error in valid');
-//         return res.status(400).send(error.message)
-//     }
-//     next()
-// }
-
-// const middlCheckToken = async (req, res, next) => {
-//     const token = req.cookies.token;
-//     if (!token) return res.status(401).json({ msg: "No token" });
-//     try {
-//         const decoded = jwt.verify(token, secretKey);
-//         req.user = decoded;
-//         next();
-//     } catch (err) {
-//         return res.status(401).json({ msg: "Token expired or invalid" });
-//     }
-// }
 
 app.get('/auth/check', middlCheckToken, (req, res) => {
     res.json(req.user)
