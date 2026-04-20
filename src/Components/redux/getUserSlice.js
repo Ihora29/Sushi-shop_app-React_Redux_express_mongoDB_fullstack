@@ -13,14 +13,14 @@ const initialState = {
 
 export const fetchUser = createAsyncThunk('getUser', async () => {
     const response = await axios.get('http://localhost:5000/auth/check');
+
+
     return response.data;
 });
 
 
 export const updateUser = createAsyncThunk('authUpdUser', async (update) => {
     const { data } = await axios.patch("http://localhost:5000/auth/check", update, { withCredentials: true });
-
-
     return data;
 })
 

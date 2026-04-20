@@ -8,18 +8,35 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { addToBasket } from '../redux/basketSlice';
 import axios from 'axios';
+import { fetchUser } from '../redux/getUserSlice';
 
+const SaleItems = () => {
 
-export const SaleItems = () => {
-
-  const isUserAuth = JSON.parse(localStorage.getItem('isUserAuth'));
+  const isUserAuth = useSelector((state) => state.getUser.user);;
 
   const [countProduts, setCountProducts] = useState([]);
 
   const productsData = useSelector((state) => state.products.products);
   useEffect(() => {
     setCountProducts(productsData);
-  }, [])
+    console.log(isUserAuth);
+
+
+  }, []);
+
+
+  useEffect(() => {
+    if (allProducts) {
+      setSaleItems(itemsWithOption)
+    }
+
+  }, [productsData]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProducts());
+    dispatch(fetchUser())
+  }, [dispatch]);
 
 
   const allProducts = productsData
@@ -83,32 +100,15 @@ export const SaleItems = () => {
 
     if (countProduts.length > 0) {
 
-      console.log(countProduts);
+
 
       axios.post(`http://localhost:3001/products`, newProduct)
-
         .then(response => {
           console.log(response);
 
         })
     }
-
-  }
-
-  useEffect(() => {
-    if (allProducts) {
-      setSaleItems(itemsWithOption)
-    }
-
-
-  }, [productsData]);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-
+  };
 
   return (
     <>
@@ -116,7 +116,6 @@ export const SaleItems = () => {
       <div className={styles.card}>
         {productsData && productsData.length > 0 ? (
           saleItems.map((item) => {
-
             return (
               <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                 <img src={item.imgSrc} className={styles.itemIcon} alt="" />
@@ -162,7 +161,7 @@ export const SaleItems = () => {
 
 
       </div>
-      {isUserAuth && isUserAuth.type === "admin-user" ? (<div className={styles.addingCont}>
+      {isUserAuth && isUserAuth.status === "admin-user" ? (<div className={styles.addingCont}>
         <form className={styles.formAdding} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.uploadArea}>
             <input type="text" required {...register('imgSrc')} style={{ marginLeft: '20px', width: '80%' }} placeholder='url item adress' />
@@ -218,3 +217,4 @@ export const SaleItems = () => {
     </>
   )
 }
+export default SaleItems

@@ -38,15 +38,6 @@ export default function Card() {
 
 
 
-    // useEffect(() => {
-    //     const drinkArray = productsData?.slice(24, 28);
-    //     const productsWithotDrinks = allProducts?.slice(0, 5);
-
-    //     
-    //     setArrayWithoutDrinks(productsWithotDrinks);
-    // }, [productsArr]);
-
-
     const handleDecrement = (id, e) => {
         if (e) {
             e.preventDefault();

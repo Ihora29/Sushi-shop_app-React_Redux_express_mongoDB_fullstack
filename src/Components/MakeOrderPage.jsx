@@ -32,7 +32,6 @@ const MakeOrderPage = () => {
 
     const [clientDelivery, setClientDelivery] = useState({});
     const [showCheck, setShowCheck] = useState(false);
-    // const navigate = useNavigate()
 
     const onSubmit = async (data) => {
         const phoneValue = inputRef.current?.value;

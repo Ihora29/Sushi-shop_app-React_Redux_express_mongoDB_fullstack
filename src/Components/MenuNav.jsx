@@ -12,6 +12,7 @@ function MenuNav() {
             <NavLink to="/drinks" className={styles.menuOption} style={({ isActive }) => ({ color: isActive ? "#b5d8f7" : "black" })} >Напої</NavLink >
             <NavLink to="/sets" className={styles.menuOption} style={({ isActive }) => ({ color: isActive ? "#b5d8f7" : "black" })} >Сети</NavLink >
             <NavLink to="moti" className={styles.menuOption} style={({ isActive }) => ({ color: isActive ? "#b5d8f7" : "black" })} >Моті</NavLink >
+            <NavLink to="best&sale_products" className={styles.menuOption} style={({ isActive }) => ({ color: isActive ? "#b5d8f7" : "black" })} >Акційні товари</NavLink >
         </div>
     )
 }

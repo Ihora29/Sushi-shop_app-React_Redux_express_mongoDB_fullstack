@@ -35,27 +35,29 @@ function EnterComp({ onClose }) {
     };
 
     const navigate = useNavigate();
-
+    const [showError, setShowError] = useState('')
     const onSubmit = async (data) => {
 
         if (data) {
             axios.post('http://localhost:5000/login', data)
                 .then(res => {
                     navigate('/user-cabinet/');
+
                     if (res.data.error) {
+                        // alert(res.data.error)
                         console.error('Помилка від сервера:', res.data.error);
                     } else {
-                        console.log('Успішно:', res.data);
+                        onClose();
+                        console.log('Успішно:', res);
                     }
                 })
                 .catch(error => {
-
                     if (error.response) {
+                        const erromsg = Object.values(error.response.data).toString()
+                        alert(erromsg)
 
-                        console.error('Помилка відповіді сервера:', error.response.data);
-                        console.error('Статус:', error.response.status);
+
                     } else if (error.request) {
-
                         console.error('Помилка запиту: відповідь не отримана', error.request);
                     } else {
 
@@ -63,18 +65,8 @@ function EnterComp({ onClose }) {
                     }
                 })
 
-
-
-
-            onClose();
-        };
-
-
-
-
-    }
-
-
+        }
+    };
 
     return (
         <>

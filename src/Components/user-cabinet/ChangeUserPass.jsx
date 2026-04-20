@@ -36,7 +36,7 @@ const ChangeUserPass = () => {
     const password = watch("password");
 
     const onSubmit = async (data) => {
-        //  setShowcabinetPop(true);
+        setShowcabinetPop(true);
         if (data.password === data.confirmPassword && data.oldPassword != '') {
             delete data['confirmPassword'];
             try {

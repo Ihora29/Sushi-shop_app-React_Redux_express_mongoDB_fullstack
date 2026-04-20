@@ -45,13 +45,13 @@ function MainPage() {
     }, [])
 
 
-    // const isUserAuth = useSelector((state) => state.getUser.user);
-    // // console.log(isUserAuth);
+    const isUserAuth = useSelector((state) => state.getUser.user);
+    // console.log(isUserAuth);
 
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(fetchUser());
-    // }, [dispatch]);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchUser());
+    }, [dispatch]);
 
 
     const handleClosePopUp = (e) => {

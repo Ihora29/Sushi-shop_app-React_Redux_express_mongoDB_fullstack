@@ -38,8 +38,6 @@ function NavbarComp() {
         e.stopPropagation();
         setShowCabinet(false);
         setOpenEnter(true);
-        // console.log('click', userLogin);
-
 
         if (userLogin != null) {
             setShowCabinet(true);
