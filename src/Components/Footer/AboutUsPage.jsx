@@ -3,7 +3,7 @@ import styles from "./../../styles/AboutUs.module.css"
 import imgUp from "../../images/reshot-icon-up-MB34E6VNCW.svg"
 import imgDown from "../../images/reshot-icon-down-2GNMF7CK9P.svg"
 
-export const AboutUsPage = () => {
+const AboutUsPage = () => {
 
     const [showFourthQuest, setShowFourthQuest] = useState(false);
     const [showFirstQuest, setShowFirstQuest] = useState(false)
@@ -110,3 +110,4 @@ export const AboutUsPage = () => {
     )
 }
 
+export default AboutUsPage

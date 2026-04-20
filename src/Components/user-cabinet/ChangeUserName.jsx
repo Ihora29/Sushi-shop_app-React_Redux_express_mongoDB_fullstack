@@ -22,9 +22,7 @@ const ChangeUserName = () => {
         replacement: { _: /\d/ },
     });
 
-    // const handleMusk = () => {
-    //     inputRef.showMask = true;
-    // };
+
 
     const [userUpdAuth, setUserUpdAuth] = useState({})
 
@@ -87,14 +85,8 @@ const ChangeUserName = () => {
         if (data) {
             delete data.birthdayUser;
             delete data._id;
-            console.log(data);
-
             const result = await dispatch(updateUser(data))
-            // console.log(result);
-
             setShowcabinetPop(true);
-
-
         }
 
     }
