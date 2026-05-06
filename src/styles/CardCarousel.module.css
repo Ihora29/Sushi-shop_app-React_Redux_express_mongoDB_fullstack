@@ -99,7 +99,7 @@
 
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 
 
     /* .karousel {
@@ -112,7 +112,7 @@
 
     .carouselContainer {
         width: 100%;
-        margin-top: 60px;
+        margin-top: 70px;
 
     }
 

@@ -350,7 +350,7 @@ h1 {
     display: flex;
     position: relative;
     flex-direction: column;
-    border: 1px solid black;
+
     text-decoration: none;
     color: black;
     border-radius: 5px;
@@ -505,8 +505,10 @@ h1 {
 
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
-
+@media screen and (max-width: 767px) {
+    /* * {
+        border: 1px solid red;
+    } */
 
 
     .mainContainer {
@@ -516,27 +518,36 @@ h1 {
 
     }
 
+    .orderCount {
+        width: 26%;
+        height: 30px;
+        margin: 7px 14px 0 0;
+    }
 
     .container {
         /* width: 100vh;
         margin: 50px auto; */
-        width: 80%;
-
-
+        width: 100%;
+        /* border: 1px solid black; */
+        display: flex;
+        flex-direction: column;
 
     }
 
     .itemIcon {
-        margin-top: 95px;
-        width: 220px;
-        height: 100px;
+        margin: 60px auto 0px;
+        width: 90%;
+
         object-fit: contain;
     }
 
     .localItemName {
-        font-size: 25px;
+
         margin: 0 auto;
-        width: 60%;
+        width: 80%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        font-size: 18px;
         display: inline-block;
         text-align: center;
     }
@@ -545,7 +556,14 @@ h1 {
     .itemInfo {
         display: flex;
         flex-direction: column;
-        margin-left: 15px;
+        width: 90%;
+        margin: 30px auto;
+
+    }
+
+    .nameProduct {
+        font-size: 14px;
+        margin: 0 auto 0;
     }
 
     .Carousel {
@@ -556,11 +574,12 @@ h1 {
     }
 
     .carouselItem {
-        width: 290px;
-        height: 350px;
+        width: 30%;
 
-        border: 1px solid #b5d8f7;
+
+        border: 1px solid #0004ff;
         border-radius: 5px;
+        width: 100%;
         display: flex;
         color: black;
         text-decoration: none;
@@ -569,7 +588,7 @@ h1 {
     }
 
     .itemPrice {
-        font-size: 3vw;
+        font-size: 5vw;
         margin-top: 10px;
     }
 
@@ -590,24 +609,42 @@ h1 {
 
     .alsoItem {
         margin: 10px auto;
-        width: 45%;
-        height: 300px;
-        border: 2px solid red;
+        width: 80%;
     }
 
     .btnAlsoBuyMini {
-        width: 6vw;
-        font-size: 0.8vw;
+        width: 14vw;
+        height: 30px;
+        font-size: 2vw;
+        font-weight: bold;
         margin-right: 5px;
     }
 
+    /* .carouselPadding {
+        padding: 0 5px;
+        width: 20%;
+        display: flex;
+        justify-content: center;
+    } */
+
     .nameAlsoProduct {
-        font-size: 1.7vw;
+        font-size: 5.5vw;
+    }
+
+    .footAlsoItem {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .aboutAlsoProduct {
+        justify-content: space-between;
     }
 
     .itemAlsoImg {
         width: 80%;
-        height: 70px;
+
         object-fit: contain;
         margin: 10px auto;
     }
@@ -624,14 +661,21 @@ h1 {
 
     .drinksContainer {
         display: flex;
-        width: 90%;
+        width: 100%;
         margin: 15px auto;
-
+        padding: 0 10px;
 
         justify-content: center;
 
     }
 
+
+
+    .itemOption {
+        margin: 10px 0 10px 15px;
+        width: 30px;
+        font-size: 12px;
+    }
 
     .drink_Item {
         width: 90%;
@@ -647,6 +691,12 @@ h1 {
         justify-content: space-between;
         align-items: center;
         border-radius: 7px;
+    }
+
+    .prodPrice {
+        margin: 15px 0 0 10px;
+        font-weight: bold;
+        font-size: 12px;
     }
 
     .btnBuyDrink {

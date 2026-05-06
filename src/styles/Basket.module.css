@@ -284,12 +284,12 @@
         margin-bottom: 20px;
     }
 
-    .carouselPadding {
-        /* border: 1px solid black;
-        width: 15%; */
+    /* .carouselPadding {
+         border: 1px solid black;
+        /* 
         display: flex;
-        justify-content: center;
-    }
+        justify-content: center;} */
+
 
     .prodPrice {
         width: 50%;
@@ -339,15 +339,24 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (max-width: 767px) {
+
+    /* * {
+        outline: 1px solid red;
+    } */
 
     .basketContainer {
         top: 70px;
-        width: 50%;
+        width: 100%;
 
     }
 
+    .orderItem {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
 
+    }
 
     .orderImg {
         width: 65px;
@@ -355,27 +364,24 @@
     }
 
     .orderName {
+        display: inline-block;
         font-size: 10px;
-        margin-left: 10px;
-        width: 50%;
+        margin-left: 5px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
-    .trashPic {
-        width: 25px;
-        height: 20px;
-        right: 70px;
-
-    }
 
     .itemsPrice {
         font-size: 10px;
-
+        margin: 10px auto;
     }
 
     .orderCount {
-        width: 50%;
+        width: 40%;
         height: 25px;
-        margin-left: 20px;
+        border: 1px solid greenyellow;
+        /* margin-left: 10%; */
     }
 
     .carouselContainer {

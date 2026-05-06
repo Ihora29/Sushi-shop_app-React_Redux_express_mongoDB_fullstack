@@ -27,9 +27,9 @@ const UserCabinet = () => {
             <div className={styles.mainContainer}>
                 <div className={styles.navSideRoutes}>
                     <ul className={styles.navList}>
-                        <li><NavLink to='' className={styles.linkInCabinet}>Особисті дані</NavLink></li>
-                        <li><NavLink to="orderhistory" className={styles.linkInCabinet}>Історія замовлень</NavLink></li>
-                        <li><NavLink to='changepass' className={styles.linkInCabinet}>Зміна паролю</NavLink></li>
+                        <li className={styles.liNavList}><NavLink to='' className={styles.linkInCabinet}>Особисті дані</NavLink></li>
+                        <li className={styles.liNavList}><NavLink to="orderhistory" className={styles.linkInCabinet}>Історія замовлень</NavLink></li>
+                        <li className={styles.liNavList}><NavLink to='changepass' className={styles.linkInCabinet}>Зміна паролю</NavLink></li>
                     </ul>
                 </div>
 

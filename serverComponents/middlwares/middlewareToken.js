@@ -12,7 +12,7 @@ dotenv.config({
 
 const secretKey = process.env.SECRETKEY;
 
-export const middlCheckToken = async (req, res, next) => {
+export const middlCheckToken = (req, res, next) => {
     const token = req.cookies.token;
     if (!token) return res.status(401).json({ msg: "No token" });
     try {

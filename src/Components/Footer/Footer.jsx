@@ -20,12 +20,11 @@ function Footer() {
                     <NavLink className={styles.footerLink} to="actions" href="#">Акції</NavLink >
                     <NavLink className={styles.footerLink} to="about-us">Про нас</NavLink>
                     <NavLink className={styles.footerLink} to="oferta">Оферта</NavLink>
-                    <p className={styles.footDelivery}><b>Точки самовивозу</b>
+                    <p className={styles.footDelivery}><b>Точка самовивозу</b>
                         <br />
                         вул. Володимира Великого, 10в
-                        вул. Чорновола, 95
-                        вул. Зелена 204б</p>
-                    <p className={styles.footOrder}>Оформити замовлення
+                    </p>
+                    <p className={styles.footOrder}><b>Оформити замовлення</b>
                         <br />
                         +380978780837</p>
                     <p className={styles.footWorkTime}><b>Працюємо з 11:00-23:00</b></p>

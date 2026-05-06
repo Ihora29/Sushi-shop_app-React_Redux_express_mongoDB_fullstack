@@ -101,14 +101,7 @@ const MakeOrderPage = () => {
     // const location = useLocation();
     // const { state } = location;
 
-    const handleDelete = (e, item) => {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        dispatch(removeFromBasket(item))
 
-    };
 
     const [orderItem, setOrderItem] = useState([]);
 
@@ -152,17 +145,16 @@ const MakeOrderPage = () => {
             e.preventDefault();
             e.stopPropagation();
         }
-        setOrderItem(
-            orderItem.map(item => {
-                if (item_id === item.id) {
-                    return { ...item, totalCount: item.totalCount - (item.totalCount > 1 ? 1 : 0) }
-                }
-                else {
-                    return item
-                }
-            })
 
-        )
+        setOrderItem(prev =>
+            prev
+                .map(item =>
+                    item.id === item_id
+                        ? { ...item, totalCount: item.totalCount - 1 }
+                        : item
+                )
+                .filter(item => item.totalCount > 0)
+        );
     };
 
 
@@ -183,9 +175,9 @@ const MakeOrderPage = () => {
 
                             return (<li key={item.id} className={styles.itemContainer}>
                                 <img className={styles.orderPictire} src={item.imgSrc} alt="item name" />
-                                <div className={styles.orderName}>{item.name}</div>
-                                <span className={styles.trashAndCounContainer}>
-                                    <img className={styles.trashOrder} src={imgTrash} onClick={(e) => handleDelete(e, item)} alt="trash" />
+                                <span className={styles.orderName}>{item.name}</span>
+                                <div className={styles.trashAndCounContainer}>
+
                                     <div className={styles.orderCount} >
                                         <button className={styles.btnOrder} aria-hidden='false'
                                             onClick={(e) => handleDecrese(e, item.id)}
@@ -196,7 +188,7 @@ const MakeOrderPage = () => {
                                             onClick={(e) => handleIncrese(e, item.id)}
                                         >+</button>
                                     </div>
-                                </span>
+                                </div>
 
                             </li>
                             )
@@ -232,7 +224,7 @@ const MakeOrderPage = () => {
 
                     </div>
 
-                    <div>
+                    <div className={styles.tableCheck}>
 
                         <div className={styles.formOrderPromo} >
 
@@ -241,7 +233,7 @@ const MakeOrderPage = () => {
                                     <input className={styles.promoInput} type="text" placeholder='Введіть промокод' />
                                     <button className={styles.promoButton}>Застосувати</button>
                                 </div>
-                                <select name="" className={styles.selectSale} id="">
+                                <select name="" className={styles.selectSale} id="selectSales2">
                                     <option value="#">Оберіть акцію</option>
                                     <option value="3+1">3+1</option>
                                     <option value="3+1">Рол тижня</option>

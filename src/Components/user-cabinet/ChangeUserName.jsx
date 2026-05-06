@@ -131,8 +131,6 @@ const ChangeUserName = () => {
                         onInput={(e) => e.target.value = e.target.value.replace(/\D/g, '')}
                         required
 
-                    // placeholder="phone 380XXXXXXXXX"
-                    // ref={inputRef} onChange={() => handleMusk} required
                     />
 
                     <p>{errors.phone?.message}</p>

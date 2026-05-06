@@ -1,6 +1,7 @@
 const { middlRegUser } = require('./middlwares/middlwareRegister');
 const { middleLogUser } = require('./middlwares/middlwareLogin');
-const { middlCheckToken } = require('./middlwares/middlewareToken')
+const { middlCheckToken } = require('./middlwares/middlewareToken');
+const { middlewareGetUser } = require('./middlwares/middlewareGetUser')
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -16,8 +17,6 @@ const jwt = require("jsonwebtoken");
 
 
 const secretKey = process.env.SECRETKEY;
-
-
 
 app.use(cors({
     origin: "http://localhost:3000",
@@ -157,13 +156,10 @@ app.get('/add-order', middlCheckToken, async (req, res) => {
     }
 });
 
-app.get('/users', async (req, res) => {
-    const usersList = await UserModel.find();
 
-    res.json(usersList)
-});
 
-app.get('/users/:id', async (req, res) => {
+app.get('/users/:id', middlCheckToken, middlewareGetUser(['admin-user', 'login - user']), async (req, res) => {
+
 
     try {
         const userById = await UserModel.findById(req.params.id);

@@ -108,8 +108,8 @@ export default function Card() {
             items: 2
         },
         mobile: {
-            breakpoint: { max: 768, min: 0 },
-            items: 2
+            breakpoint: { max: 767, min: 0 },
+            items: 1
         }
     }
 
@@ -152,10 +152,10 @@ export default function Card() {
                         <NavLink to={`/product/${item.id}`} key={item.id} className={styles.alsoItem}>
                             <img src={item.imgSrc} className={styles.itemAlsoImg} alt="" />
                             <h2 className={styles.nameAlsoProduct}>{item.name}</h2>
-                            <div className={styles.itemOption}>{item.option}</div>
+                            {item.option && <div className={styles.itemOption}>{item.option}</div>}
                             <div className={styles.aboutAlsoProduct}>
                                 <p className={styles.itemProd}>{item.details}</p>
-                                <span className={styles.weightProduct}> <b>Вага:</b>{item.weight}</span>
+                                <span className={styles.weightProduct}> <b>Вага:</b>{item.weight}г.</span>
                             </div>
                             <div className={styles.footAlsoItem}>
                                 <span className={styles.prodPrice}>{item.price * item.totalCount} грн.</span>

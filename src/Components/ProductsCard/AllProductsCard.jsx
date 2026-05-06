@@ -11,7 +11,6 @@ function AllProductsCard() {
         .filter((item) => item)
         .reduce((acc, curr) => acc.concat(curr), []);
 
-    // const basket = useSelector((state) => state.basketItems.basketItems);
 
     const [localProducts, setLocalProducts] = useState([]);
 

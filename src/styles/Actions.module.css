@@ -123,6 +123,11 @@ h2 {
     color: black;
 }
 
+.ActionTakeYourselfWrapper {
+    width: 100vh;
+    margin: 150px auto;
+}
+
 .nameAction {
     font-size: 24px;
     font-weight: bold;
@@ -218,36 +223,99 @@ h2 {
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 
     .actionText {
         display: block;
-        width: 40%;
-        position: relative;
-        margin: 70px auto;
+        border: 2px solid black;
+        text-decoration: overline;
+        color: #b5d8f7;
 
+        width: 30%;
+        font-size: 14px;
+        margin: 100px auto 50px;
+
+    }
+
+    .RolOfWeek_list {
+
+        margin: 40px auto;
+        width: 80%;
+    }
+
+    .firstBlok {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
     }
 
     .actionMainCont {
 
-        width: 100vh;
+        width: 100%
+    }
+
+    .RolOfWeek_h1 {
+        font-size: 35px;
+    }
+
+    .HBText_h1 {
+        font-size: 40px;
+
 
     }
 
+    .HBText_item {
+
+        border: 2px solid black;
+    }
+
+    .HBText_list {
+        font-size: 25px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        width: 80%;
+        margin: 40px auto;
+        /* list-style-type: disc !important; */
+    }
+
+    #RolOfWeek_h2 {
+        font-size: 30px;
+        margin-top: 10px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bolder;
+    }
 
     .actionContainer {
-        width: 45%;
+        width: 80%;
+        margin: 0 auto;
     }
 
-    weekRollContainer .aboutHBCont {
-        width: 100vh;
-        border: 1px solid black;
+    .aboutHBCont {
+        width: 80%;
+
+        margin: 0 auto;
+    }
+
+    .ActionTakeYourselfWrapper {
+        width: 100%;
+        margin: 150px auto;
+    }
+
+    .takeYoureslf_ol_list,
+    .takeYoureslf_ul_list {
+        margin: 20px auto;
+    }
+
+    #HBText {
+        font-size: 23px;
+        text-decoration: overline;
 
     }
+
 
     .boxName {
-        width: 60%;
-        height: 200px;
+        width: 80%;
+        height: 150px;
         margin: 20px auto;
         padding-top: 10px;
         border-radius: 14px;
@@ -255,16 +323,43 @@ h2 {
 
     }
 
+    .takeYoureslf_h2 {
+        font-size: 20px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-top: 20px;
+        margin-bottom: 30px;
+
+    }
+
+    .actionParagraf {
+        display: block;
+
+        margin: 20px auto 30px;
+        font-size: 14px;
+
+    }
+
+    .action_ul_list {
+        font-size: 14px;
+        margin: 10px 0 15px 40px;
+    }
+
     .weekRollContainer,
     .container3in5,
     .main_HB_container {
         margin: 150px auto 0;
-        width: 100vh;
+        width: 100%
+    }
+
+
+    .action3in5_list {
+        width: 80%;
+        margin: 40px auto;
     }
 
     .takeYoureslf_h1 {
-        font-size: 40px;
-        margin-top: 10px;
+        font-size: 30px;
+        margin-top: 40px;
         text-decoration: overline;
     }
 

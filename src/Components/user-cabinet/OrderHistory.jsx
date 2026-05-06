@@ -29,7 +29,7 @@ const OrderHistory = () => {
                 <li className={styles.buyedItemsLi} key={index}>
                     <div className={styles.buyedItemsName}>{item.name}</div> <span style={{ marginRight: '20px', fontWeight: 'bold', fontSize: '21px' }}>{item.totalCount}</span>
                 </li>
-            ))}</div> : <h2>У Вас ще не має замовлень, перейти до <NavLink to='/'><b>каталогу</b></NavLink> </h2>
+            ))}</div> : <h2 className={styles.yourOrderH2}>У Вас ще не має замовлень, перейти до <NavLink to='/'><b>каталогу</b></NavLink> </h2>
             }
         </>
     )
