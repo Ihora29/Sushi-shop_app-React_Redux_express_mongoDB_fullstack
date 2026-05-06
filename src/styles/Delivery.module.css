@@ -73,6 +73,11 @@
 
 }
 
+.h1line {
+    margin-top: 50px;
+
+}
+
 .h1line::after {
     content: '';
     width: 370px;
@@ -175,6 +180,7 @@
     width: 40%;
 
     display: flex;
+
     justify-content: space-between;
 }
 
@@ -193,6 +199,11 @@
 .payContainerDescr {
     width: 50%;
 
+}
+
+.mapDeliveryCont {
+    width: 100%;
+    height: 400px;
 }
 
 .payContainerDescr p {
@@ -232,6 +243,7 @@
 
     }
 
+
     .deliveryDescr {
         font-size: 16px;
     }
@@ -267,9 +279,18 @@
         margin-left: 25px;
     }
 
+    .firstInfo {
+        width: 100%;
+
+        margin-top: 30px;
+        height: 300px;
+        display: flex;
+        justify-content: space-around;
+    }
+
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 
     .deliveryContainer {
         display: none;
@@ -279,12 +300,31 @@
         display: none;
     }
 
+    .firstInfo {
+        width: 100%;
+
+        margin-top: 30px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+
     .deliveryZoneContainer {
-        width: 100vh;
+        width: 100%;
+        margin: 0;
     }
 
     .h1line {
-        margin: 0 auto;
+        margin: 100px auto 0;
+        font-size: 20px;
+    }
+
+
+
+    .mapDelivery {
+        width: 80%;
+        height: 20%;
+        margin: 300px auto 20px;
     }
 
     .deliveryIcon {
@@ -295,9 +335,9 @@
     }
 
     .describePtext {
-        display: inline;
-        font-size: 14px;
-        margin-left: 10px;
+        display: block;
+        font-size: 12px;
+        /* margin-left: 10px; */
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         font-weight: bold;
     }
@@ -307,18 +347,33 @@
     }
 
     .payContainer {
-        width: 70%;
+        width: 100%;
         margin: 0 auto;
 
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
     }
 
     .payCashContainer {
-        width: 50%;
+        width: 100%;
 
         display: flex;
         justify-content: space-around;
+    }
+
+    .descrPayText p {
+        margin: 0 auto;
+        font-size: 18px;
+    }
+
+
+
+    .deliveryCont1,
+    .deliveryCont2 {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
     }
 
     .payH6 {

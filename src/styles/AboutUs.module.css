@@ -54,6 +54,7 @@ ul {
 .blockOfsecondCont {
     padding-top: 30px;
     margin-left: 20px;
+
 }
 
 .thirdContainer {
@@ -161,10 +162,48 @@ h5 {
 
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 
     .mainAboutCont {
-        width: 100vh;
+        width: 100%;
+    }
+
+    .secondContainer {
+        flex-direction: column;
+    }
+
+    .secondContainer,
+    .blockOfsecondCont {
+        width: 100%;
+        border: 2px solid black;
+    }
+
+    .blockOfThirdContainer {
+
+        width: 100%;
+        display: flex;
+        margin-top: 40px;
+        flex-direction: column;
+    }
+
+    .thirdContainer {
+        display: flex;
+        margin-top: 25px;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .secondImgCont {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .blockOfsecondCont {
+        margin: 0;
+    }
+
+    .imgOfThirdCont {
+        width: 100%;
     }
 
     .mainNamepage::after {
@@ -175,6 +214,9 @@ h5 {
         width: 85%;
     }
 
+    .descrpText {
+        font-size: 16px;
+    }
 
 
 

@@ -182,6 +182,8 @@
 .infoAboutUs:hover {
     cursor: pointer;
     background-color: #b5d8f7;
+
+
     color: white;
 }
 
@@ -198,7 +200,6 @@
 
     z-index: 10;
 }
-
 
 
 .hamburger:hover {
@@ -301,6 +302,15 @@
     margin-left: 12px;
     padding-top: 7px;
 }
+
+.workTimeAboutUsDiv {
+    font-size: 22px;
+    margin: 0 auto;
+}
+
+/* .workTimeAboutUsSpn {
+    font-size: 26px;
+} */
 
 .blockPhone {
     border: 1px solid black;
@@ -455,6 +465,7 @@
 
 .basketContainer {
     width: 12%;
+
     display: flex;
     flex-direction: column;
 }
@@ -604,8 +615,8 @@
     }
 
     .packageLogo {
-        width: 30%;
-        margin-left: 20px;
+        width: 25%;
+        margin-left: 10px;
     }
 
     .phoneContact {
@@ -673,7 +684,7 @@
     }
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) {
+@media screen and (max-width: 767px) {
 
     .productsPanel {
         bottom: 0px;
@@ -684,20 +695,46 @@
 
     .headerPanel {
         height: 80px;
+        width: 100%;
     }
 
+
+
     .totalPrice {
-        font-size: 13px;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 15px 15px 0 0;
     }
 
     .workTimeAboutUs {
         flex-direction: column;
         display: flex;
         margin-top: 40px;
+        font-size: 18px;
+    }
+
+    .workTimeAboutUs div {
+        font-size: 18px;
+    }
+
+    .blockPhone {
+        height: 30px;
+        margin-top: 20px;
     }
 
     .brandIcon {
         display: none;
+    }
+
+    .userLogin {
+        width: 40px;
+        height: 40px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
     }
 
     .brand {
@@ -707,9 +744,9 @@
 
     .brandIconMobile {
         display: block;
-
-        width: 60%;
-        height: 90px;
+        margin: 0 auto;
+        width: 80%;
+        height: 80%;
 
 
     }
@@ -729,6 +766,8 @@
 
     .phoneContact {
         width: 8%;
+        margin: 0;
+
     }
 
     .workTimeNumber {
@@ -740,23 +779,31 @@
 
     }
 
+
+
     #hamburger {
-        width: 50px;
+        width: 17%;
         height: 50px;
-        margin: 20px auto;
+        margin: 17px auto;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .basketContainer {
-        width: 17%;
+        width: 30%;
     }
 
     .packageLogo {
-        width: 30px;
-        height: 30px;
-        margin: 0 10px 0 15px;
+        width: 17%;
+        /* height: 10px; */
+        margin: 0 10px 0 10px;
     }
 
     .buyCount {
+        width: 20px;
+        height: 20px;
         left: 38px;
     }
 
@@ -764,12 +811,12 @@
     .aboutUs {
         position: fixed;
         top: 80px;
-        height: 100%;
+        width: 100%;
         bottom: 80px;
         right: 0;
         border-bottom: none;
         border-top: none;
-        width: 50%;
+        height: 50%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -824,13 +871,13 @@
     }
 
     .cabinetContainer {
-        width: 22%;
-        height: 195px;
+        width: 50%;
+        height: 40%;
         border-bottom: 2px solid #8fcbff;
         border-left: 2px solid #8fcbff;
         border-right: 2px solid #8fcbff;
         top: 70px;
-        right: 150px;
+        right: 30%;
         position: fixed;
         background-color: aliceblue;
     }

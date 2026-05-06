@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import basketImg from "./../../images/reshot-icon-trash-2ZNJ9PUBQL.svg"
 import { removeFromBasket } from '../redux/basketSlice.js';
 import { addToBasket } from '../redux/basketSlice.js';
 import { Link } from 'react-router-dom';
@@ -78,30 +77,18 @@ export default function Basket() {
       e.preventDefault();
       e.stopPropagation();
     }
-    setBasketItemCount(
-      basketItemCount.map(item => {
-        if (item_id === item.id) {
-          return { ...item, totalCount: item.totalCount - (item.totalCount > 1 ? 1 : 0) }
-        }
-        else {
-          return item
-        }
-      })
 
-    )
+    setBasketItemCount(prev =>
+      prev
+        .map(item =>
+          item.id === item_id
+            ? { ...item, totalCount: item.totalCount - 1 }
+            : item
+        )
+        .filter(item => item.totalCount > 0)
+    );
   }
 
-
-
-  const handleDelete = (e, item) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    dispatch(removeFromBasket(item));
-    // console.log();
-
-  };
 
   const handleAddBasket = (e, item) => {
     if (e) {
@@ -128,8 +115,8 @@ export default function Basket() {
 
     },
     mobile: {
-      breakpoint: { max: 768, min: 0 },
-      items: 1,
+      breakpoint: { max: 767, min: 0 },
+      items: 2,
 
     }
   }
@@ -146,7 +133,7 @@ export default function Basket() {
             <li className={styles.orderItem} key={index}>
               <img className={styles.orderImg} src={item.imgSrc} alt="" />
               <span className={styles.orderName}> {item.name}</span>
-              <img className={styles.trashPic} src={basketImg} onClick={(e) => handleDelete(e, item)} alt="" />
+
               <div className={styles.changeContainer}>
                 <div className={styles.orderCount}>
                   <button className={styles.btnOrder}

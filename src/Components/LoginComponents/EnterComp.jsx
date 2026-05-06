@@ -7,24 +7,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 
-
-
 function EnterComp({ onClose }) {
+
     const dispatch = useDispatch();
     const [showLogin, setShowLogin] = useState(false);
     const [showEnter, setShowEnter] = useState(true);
     const [showErrorAuth, setShowErrorAuth] = useState(false)
 
     const [usersData, setUsersData] = useState([]);
-
-    // useEffect(() => {
-    //     // axios.get('http://localhost:3001/users-login')
-    //     //     .then(response => {
-    //     //         setUsersData(response.data);
-    //     //     });
-    // }, [])
-
-
 
     const { register, reset, watch,
         handleSubmit, formState: { errors } } = useForm();

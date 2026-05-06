@@ -8,7 +8,10 @@ import markerIconPng from 'leaflet/dist/images/marker-icon.png';
 import markerShadowPng from 'leaflet/dist/images/marker-shadow.png';
 import shopicon from '../../images/shop-svgrepo-com.svg';
 import { useState } from 'react';
-export const ZoneDelivery = () => {
+
+
+
+const ZoneDelivery = () => {
     const [position, setPosition] = useState([49.8397, 24.0297]); // Початкові координати (Львів)
 
     const mapRef = useRef();
@@ -62,7 +65,7 @@ export const ZoneDelivery = () => {
     return (
         <div className={styles.deliveryZoneContainer}>
 
-            <h1 className={styles.h1line} style={{ marginTop: '50px' }}>Доставка та оплата</h1>
+            <h1 className={styles.h1line} >Доставка та оплата</h1>
 
             <section className={styles.firstInfo}>
 
@@ -100,7 +103,7 @@ export const ZoneDelivery = () => {
                 <MapContainer
                     center={[49.8397, 24.0297]}
                     zoom={12}
-                    style={{ height: '500px', width: '100%' }}
+                    className={styles.mapDeliveryCont}
                     ref={mapRef}
                     zoomControl={false}
 
@@ -124,7 +127,7 @@ export const ZoneDelivery = () => {
                     Ми поділили Львів на умовні зони доставки – зелену та жовту. Для кожної зони ми чітко визначаємо час доставки.
                     Зелена зона доставки знаходиться ближче до нашої кухні, тому замовлення в цю зону доставляються – до 1 год. В жовту зону, яка знаходиться значно далі – до 1,5 год.</p>
             </section>
-            <h2 style={{ textAlign: 'center' }}>Оплата</h2>
+            <h2 style={{ textAlign: 'center', width: '100%' }}>Оплата</h2>
             <div className={styles.payContainer}>
                 <div className={styles.payCashContainer}>
                     <div className={styles.payCashIcon}><img src="https://monosushi.com.ua/wp-content/uploads/2020/11/pay-info-img-3.svg" alt="" /></div>
@@ -156,3 +159,4 @@ export const ZoneDelivery = () => {
         </div>
     )
 }
+export default ZoneDelivery

@@ -131,8 +131,8 @@ function NavbarComp() {
                         <NavLink to="/actions" className={styles.infoActions}>Акції</NavLink>
                         <NavLink to="/about-us" className={styles.infoAboutUs} id={styles.infoAboutUsID}>Про нас</NavLink>
                         <div className={styles.workTimeAboutUs}>
-                            <div style={{ fontSize: '22px', margin: '0 auto' }}><b>+380978780837</b></div>
-                            <span style={{ fontSize: '26px' }}>Працюємо з  <b>11:00-23:00</b></span>
+                            <div className={styles.workTimeAboutUsDiv}><b>+380978780837</b></div>
+                            <span className={styles.workTimeAboutUsSpn}>Працюємо з  <b>11:00-23:00</b></span>
                         </div>
                     </div>)}
                 </div>
@@ -174,7 +174,6 @@ function NavbarComp() {
                 {showCabinet ? <PopUpCabinet setShowCabinet={setShowCabinet} /> : null}
 
                 <div className={styles.basketContainer}>
-
 
                     <div onClick={checkBasket} style={showBasket ? { backgroundColor: "transparent" } : null} className={styles.packageBuy}>
                         <img className={styles.packageLogo} src="https://monosushi.com.ua/wp-content/themes/monosushi/img/basket.svg" alt="basket" ></img>
