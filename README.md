@@ -1,72 +1,49 @@
 # 🛒 Magazine React Redux
 
-A simple and responsive online store built with **React**, **Redux Toolkit**, and **SCSS**.  
-Includes product list, shopping cart, dynamic rendering via Redux, and mock backend via `json-server`.
+
+Sushi Store — Full Stack Web Application
+
+Modern full stack sushi delivery web application built with React, Redux Toolkit, Node.js, Express and MongoDB.
+
+## 🚀 Tech Stack
+
+### Frontend
+- React 19
+- Redux Toolkit
+- React Router
+- Material UI (MUI)
+- Axios
+- React Hook Form
+- Leaflet Maps
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- Cookie Parser
+- Joi Validation
 
 ---
 
-## 📦 Features
+# ✨ Features
 
-- 🧺 Add/remove products to/from cart
-- 🛍 View cart with total amount
-- 📦 Product cards with details
-- 🔄 Redux store with slices and actions
-- 💅 SCSS styling and media queries for responsiveness
-- 🖥 Responsive layout (desktop, tablet, mobile)
-- 🧪 Local mock API using `db.json`
+- 🔐 Authentication & Authorization (JWT)
+- 🍱 Sushi catalog
+- 🛒 Shopping cart
+- 📱 Responsive design
+- 📍 Interactive map with Leaflet
+- ✅ Form validation
+- ⚡ REST API
+- 🍪 Cookie based auth
+- 🔄 Redux global state management
 
 ---
 
-## 🚀 How to Run the Project
+# 📸 Screenshots
 
-### 1. 📥 Clone the repository
-
-```bash
-git clone https://github.com/Ihora29/Magazine-React-Redux.git
-cd Magazine-React-Redux
-2. 📦 Install dependencies
-bash
-Копіювати
-Редагувати
-npm install
-3. 🧪 Run the mock server (backend)
-bash
-Копіювати
-Редагувати
-npm run server
-This uses json-server to serve data from db.json at http://localhost:3001
-
-4. 🖥 Run the React app
-bash
-Копіювати
-Редагувати
-npm start
-App will open in your browser at http://localhost:3000
-
-📁 Project Structure
-bash
-Копіювати
-Редагувати
-📦 src/
-├── Components/           # UI components (Card, Cart, etc.)
-├── Routing/              # React Router config
-├── styles/               # SCSS + media queries
-├── images/               # Product images
-├── App.js
-├── index.js
-└── redux/                # Redux Toolkit slices
-🧠 Technologies Used
-React
-
-Redux Toolkit
-
-SCSS Modules
-
-React Router
-
-JSON Server
-
-JavaScript (ES6)
+_Add screenshots here later_
 
 📱 Responsive Design
 The UI supports the following breakpoints:
