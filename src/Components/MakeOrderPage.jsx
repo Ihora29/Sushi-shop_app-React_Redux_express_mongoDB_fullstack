@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from './redux/getProductsSlice';
 import { fetchUser } from './redux/getUserSlice';
-import { removeFromBasket } from './redux/basketSlice';
+import { decrementBasket, increaseBasket } from './redux/basketSlice';
 import Map from './map/Map';
 import { PopUpDelivery } from './popUp/PopUpDelivery';
 import { useForm } from 'react-hook-form';
@@ -35,10 +35,6 @@ const MakeOrderPage = () => {
 
     const onSubmit = async (data) => {
         const phoneValue = inputRef.current?.value;
-        //  const userDeliver = { ...data, phone: phoneValue };
-
-        console.log('data', data);
-        console.log(phoneValue);
 
 
         if (data.name == userAuth.firstName && phoneValue == userAuth.phone && basket.length > 0) {
@@ -71,8 +67,6 @@ const MakeOrderPage = () => {
     const [motiItem, setMotiItem] = useState(null);
 
 
-
-
     useEffect(() => {
         if (productsData.length > 0) {
             setMotiItem(productsData[10]);
@@ -98,46 +92,30 @@ const MakeOrderPage = () => {
     const handleMusk = () => {
         inputRef.showMask = true;
     };
-    // const location = useLocation();
-    // const { state } = location;
 
-
-
-    const [orderItem, setOrderItem] = useState([]);
-
-    useEffect(() => {
-        setOrderItem(basket)
-        console.log(basket);
-
-    }, [basket]);
 
     const [totalSum, setTotalSum] = useState(0);
 
     useEffect(() => {
-        const totalSumRes = orderItem.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
+        const totalSumRes = basket.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
         setTotalSum(totalSumRes);
-        if (orderItem.length == 0) {
+        if (basket.length == 0) {
             setTotalSum(0)
         };
 
 
-    }, [orderItem]);
+    }, [basket]);
 
     const handleIncrese = (e, item_id) => {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
         }
-        setOrderItem(
-            orderItem.map(item => {
-                if (item_id === item.id) {
-                    return { ...item, totalCount: item.totalCount + 1 }
-                }
-                else {
-                    return item
-                }
+        dispatch(
+            increaseBasket({
+                id: item_id
             })
-        )
+        );
     };
 
     const handleDecrese = (e, item_id) => {
@@ -146,14 +124,10 @@ const MakeOrderPage = () => {
             e.stopPropagation();
         }
 
-        setOrderItem(prev =>
-            prev
-                .map(item =>
-                    item.id === item_id
-                        ? { ...item, totalCount: item.totalCount - 1 }
-                        : item
-                )
-                .filter(item => item.totalCount > 0)
+        dispatch(
+            decrementBasket({
+                id: item_id
+            })
         );
     };
 
@@ -171,7 +145,7 @@ const MakeOrderPage = () => {
                 <div className={styles.makeOrderContainer}>
                     <h1 className={styles.MakeOrdertext}>Оформити замовлення</h1>
                     <div className={styles.itemsContainer}>
-                        {basket.length > 0 ? orderItem.map((item) => {
+                        {basket.length > 0 ? basket.map((item) => {
 
                             return (<li key={item.id} className={styles.itemContainer}>
                                 <img className={styles.orderPictire} src={item.imgSrc} alt="item name" />
@@ -199,7 +173,7 @@ const MakeOrderPage = () => {
                             <span className={styles.textClickOnMe}>Клікни на мене,щоб обрати <b>МЕНЮ</b>!</span>
 
                         </div>}
-                        <div style={orderItem.length > 0 ? { display: 'flex' } : { display: 'none' }} className={styles.totalContainer}>
+                        <div style={basket.length > 0 ? { display: 'flex' } : { display: 'none' }} className={styles.totalContainer}>
                             <span className={styles.totalTextSum}>Загальна сума: </span> <span
                                 style={{ paddingBottom: '3px', fontSize: '23px' }}><b>{totalSum}</b> </span> <span style={{ paddingTop: '3px' }}>грн.</span>
                         </div>
@@ -361,7 +335,7 @@ const MakeOrderPage = () => {
                     </div>
                     {showCheck && <Backdrop sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
                         open={true}>
-                        <CheckForBuy orderItem={orderItem} address={address} totalSum={totalSum} clientDelivery={clientDelivery} />
+                        <CheckForBuy address={address} totalSum={totalSum} clientDelivery={clientDelivery} />
                     </Backdrop>}
                 </div>
             </div>

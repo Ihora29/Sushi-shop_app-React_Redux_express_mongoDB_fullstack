@@ -46,12 +46,53 @@ export const basketSlice = createSlice({
             //  console.log(state.basketItems);
 
             localStorage.setItem('basket', JSON.stringify(state.basketItems));
-        }
+        },
+        decrementBasket: (state, action) => {
+
+            const item =
+                state.basketItems.find(
+                    item => item.id === action.payload.id
+                );
+
+            if (!item) return;
+
+            item.totalCount--;
+
+            if (item.totalCount <= 0) {
+
+                state.basketItems =
+                    state.basketItems.filter(
+                        item => item.id !== action.payload.id
+                    );
+            }
+
+            localStorage.setItem(
+                'basket',
+                JSON.stringify(state.basketItems)
+            );
+
+        },
+        increaseBasket: (state, action) => {
+
+            const item = state.basketItems.find(
+                item => item.id === action.payload.id
+            );
+
+            if (!item) return;
+
+            item.totalCount++;
+
+            localStorage.setItem(
+                'basket',
+                JSON.stringify(state.basketItems)
+            );
+
+        },
 
     },
 
 });
 
-export const { addToBasket, removeFromBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, decrementBasket, increaseBasket } = basketSlice.actions;
 
 export default basketSlice.reducer;

@@ -33,6 +33,18 @@ function NavbarComp() {
 
     }, [dispatch]);
 
+    const basket = useSelector((state) => state.basketItems.basketItems);
+
+    // const mapbox = useSelector(state => {
+    //     return {
+    //         productsData: state.products?.products || [],
+    //         basket: state.basketItems.basketItems || []
+    //     }
+    // });
+    // const basket = mapbox.basket
+
+
+
 
     const handleClick = (e) => {
         e.stopPropagation();
@@ -60,7 +72,7 @@ function NavbarComp() {
 
     const [showBasket, setShowBasket] = useState(false);
 
-    const basket = useSelector((state) => state.basketItems.basketItems);
+
 
     const [totalCount, setTotalCount] = useState(0);
     const [orderPrice, setOrderPrice] = useState(0);
@@ -74,16 +86,19 @@ function NavbarComp() {
     useEffect(() => {
 
         if (basket && basket.length > 0) {
+            console.log('isBasketnot empty');
+
             const totalOrderCount = basket.reduce((accumulator, item) => accumulator + item.totalCount, 0);
             const totalOrderSum = basket.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
             setTotalCount(totalOrderCount);
             setOrderPrice(totalOrderSum);
-        } else if (basket.length == 0) {
+        } else {
+
             setOrderPrice(0);
             setTotalCount(0)
         }
 
-    },)
+    })
 
     const [showPhoneComp, setShowPhoneComp] = useState(false)
 

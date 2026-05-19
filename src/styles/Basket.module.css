@@ -35,6 +35,8 @@
 
 }
 
+
+
 .textTryAlways {
     color: black;
     margin-top: 15px;
@@ -177,6 +179,9 @@
     border: 1px solid #b5d8f7;
     border-radius: 5px;
     margin-bottom: 30px;
+    border: 1px solid green;
+    margin-left: 5%;
+
 }
 
 .drinkImg {
