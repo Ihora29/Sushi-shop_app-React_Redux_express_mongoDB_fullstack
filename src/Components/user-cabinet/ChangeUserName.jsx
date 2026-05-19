@@ -38,17 +38,40 @@ const ChangeUserName = () => {
     useEffect(() => {
         if (!userAuth) return
         else {
-            axios.get(`http://localhost:5000/users/${userAuth._id}`)
-                .then(response => setUserUpdAuth(response.data))
+            const controller = new AbortController();
+            axios.get(
+                `http://localhost:5000/users/${userAuth._id}`,
+                {
+                    signal: controller.signal
+                }
+            )
+                .then(response => {
+                    setUserUpdAuth(response.data);
+
+                })
                 .catch(error => {
+
+                    if (axios.isCancel(error)) {
+                        console.log('Request cancelled');
+                        return;
+                    }
+
                     if (error.response) {
-                        console.error('Status:', error.response.status);
-                        console.error('Data:', error.response.data);
+                        console.error(error.response.status);
+                        console.error(error.response.data);
                     } else {
-                        console.error('Error:', error.message);
+                        console.error(error.message);
                     }
                 });
+
+            return () => {
+                controller.abort();
+            };
+
         }
+
+
+
     }, [userAuth])
 
     const [userAdres, setUserAdres] = useState(['']);
