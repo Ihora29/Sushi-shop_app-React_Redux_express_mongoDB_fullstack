@@ -9,7 +9,7 @@ import { removeFromBasket } from '../redux/basketSlice.js';
 import { addToBasket } from '../redux/basketSlice.js';
 import { Link } from 'react-router-dom';
 import { fetchProducts } from '../redux/getProductsSlice';
-
+import { decrementBasket, increaseBasket } from '../redux/basketSlice.js';
 
 
 export default function Basket() {
@@ -17,7 +17,7 @@ export default function Basket() {
 
 
   const [totalSum, setTotalSum] = useState(0);
-  const [basketItemCount, setBasketItemCount] = useState([]);
+
   const dispatch = useDispatch();
 
   const mapbox = useSelector(state => {
@@ -27,7 +27,7 @@ export default function Basket() {
     }
   });
   const basket = mapbox.basket
-  //console.log(basket);
+  const [basketItemCount, setBasketItemCount] = useState(basket);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -36,40 +36,27 @@ export default function Basket() {
 
   const productsDrinks = mapbox.productsData.slice(24, 28);
 
-
   useEffect(() => {
-    if (basket.length >= 0) {
-
-      setBasketItemCount(basket);
-    } else if (basket.length === 0) {
-      setTotalSum(0)
-    }
-
-  }, [basket]);
-
-  useEffect(() => {
-    const totalSumRes = basketItemCount.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
+    const totalSumRes = basket.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
     setTotalSum(totalSumRes);
     if (basketItemCount.length == 0) {
       setTotalSum(0)
     };
-  }, [basketItemCount])
+
+
+  }, [basket])
 
   const handleIncrese = (e, item_id) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
-    setBasketItemCount(
-      basketItemCount.map(item => {
-        if (item_id === item.id) {
-          return { ...item, totalCount: item.totalCount + 1 }
-        }
-        else {
-          return item
-        }
+
+    dispatch(
+      increaseBasket({
+        id: item_id
       })
-    )
+    );
   }
 
   const handleDecrese = (e, item_id) => {
@@ -78,15 +65,23 @@ export default function Basket() {
       e.stopPropagation();
     }
 
-    setBasketItemCount(prev =>
-      prev
-        .map(item =>
-          item.id === item_id
-            ? { ...item, totalCount: item.totalCount - 1 }
-            : item
-        )
-        .filter(item => item.totalCount > 0)
+    // setBasketItemCount(prev =>
+    //   prev
+    //     .map(item =>
+    //       item.id === item_id
+    //         ? { ...item, totalCount: item.totalCount - 1 }
+    //         : item
+    //     )
+    //     .filter(item => item.totalCount > 0)
+    // );
+    dispatch(
+      decrementBasket({
+        id: item_id
+      })
     );
+
+
+
   }
 
 
@@ -127,9 +122,9 @@ export default function Basket() {
         style={basketItemCount.length > 0 ? { border: '2px solid #b5d8f7' } : null}
         className={styles.itemsCount} >
 
-        {basketItemCount.length > 0 ? (
+        {basket.length > 0 ? (
 
-          basketItemCount.map((item, index) => (
+          basket.map((item, index) => (
             <li className={styles.orderItem} key={index}>
               <img className={styles.orderImg} src={item.imgSrc} alt="" />
               <span className={styles.orderName}> {item.name}</span>
