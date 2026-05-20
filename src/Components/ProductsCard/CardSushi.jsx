@@ -21,10 +21,10 @@ function CardSushi() {
     }, [dispatch]);
 
     useEffect(() => {
-        if (sushi) {
-            setProdSushi(sushi);
-        }
-    }, []);
+
+        setProdSushi(sushi);
+
+    }, [productsData]);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -74,7 +74,7 @@ function CardSushi() {
             <h1 className={styles.nameCard}>Суші</h1>
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    sushi.map((item) => {
+                    prodSushi.map((item) => {
 
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>

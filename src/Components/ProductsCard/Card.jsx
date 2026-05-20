@@ -29,6 +29,7 @@ export default function Card() {
     const [localItem, setLocalItem] = useState({});
     const tasteAlso = productsData?.slice(0, 4);
     const drinkArray = productsData?.slice(24, 28);
+
     useEffect(() => {
         setLocalItem(item);
         // console.log('item render', drinkCount);
@@ -89,6 +90,8 @@ export default function Card() {
             e.preventDefault();
             e.stopPropagation();
         }
+
+
         dispatch(addToBasket(item))
     };
 
