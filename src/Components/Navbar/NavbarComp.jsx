@@ -86,8 +86,6 @@ function NavbarComp() {
     useEffect(() => {
 
         if (basket && basket.length > 0) {
-            console.log('isBasketnot empty');
-
             const totalOrderCount = basket.reduce((accumulator, item) => accumulator + item.totalCount, 0);
             const totalOrderSum = basket.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
             setTotalCount(totalOrderCount);

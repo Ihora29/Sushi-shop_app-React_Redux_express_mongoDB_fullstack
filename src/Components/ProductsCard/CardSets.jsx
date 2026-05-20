@@ -23,10 +23,10 @@ function CardSets() {
     const [prodSets, setProdSets] = useState([]);
 
     useEffect(() => {
-        if (sets) {
-            setProdSets(sets);
-        }
-    }, []);
+
+        setProdSets(sets);
+
+    }, [productsData]);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -77,7 +77,7 @@ function CardSets() {
 
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    sets.map((item) => {
+                    prodSets.map((item) => {
 
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>

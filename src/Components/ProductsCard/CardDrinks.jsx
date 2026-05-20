@@ -11,22 +11,19 @@ function CardDrinks() {
 
     const productsData = useSelector((state) => state.products.products);
     const drinksArr = productsData.filter(item => item.type === "drinks");
-    //drinks.push(productsData.slice(14, 15))
-    console.log();
-
+    const [drinksProd, setDrinksProd] = useState([])
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(fetchProducts());
     }, [dispatch]);
 
-    const [drinksProd, setDrinksProd] = useState([])
-
     useEffect(() => {
-        if (drinksArr) {
+        // !drinksArr return
 
-            setDrinksProd(drinksArr);
-        }
-    }, []);
+        setDrinksProd(drinksArr);
+
+    }, [productsData]);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -41,6 +38,7 @@ function CardDrinks() {
             e.preventDefault();
             e.stopPropagation();
         }
+
         setDrinksProd(
             drinksProd.map(item => {
                 if (item_id === item.id) {
@@ -51,6 +49,7 @@ function CardDrinks() {
                 }
             })
         )
+
     }
 
     const handleDecrese = (e, item_id) => {
@@ -75,7 +74,7 @@ function CardDrinks() {
             <h1 className={styles.nameCard}>Напої</h1>
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    drinksArr.map((item) => {
+                    drinksProd.map((item) => {
 
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>

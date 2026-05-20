@@ -22,10 +22,10 @@ function CardMoti() {
     const [prodMoti, setProdMoti] = useState([]);
 
     useEffect(() => {
-        if (moti) {
-            setProdMoti(moti);
-        }
-    }, []);
+
+        setProdMoti(moti);
+
+    }, [productsData]);
 
     const handleAddBasket = (e, item) => {
         if (e) {
@@ -75,7 +75,7 @@ function CardMoti() {
 
             <div className={styles.card}>
                 {productsData && productsData.length > 0 ? (
-                    moti.map((item) => {
+                    prodMoti.map((item) => {
                         return (
                             <NavLink to={`/product/${item.id}`} key={item.id} className={styles.productItem}>
                                 <img src={item.imgSrc} className={styles.itemIcon} alt="" />
