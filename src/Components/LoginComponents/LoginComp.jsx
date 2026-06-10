@@ -42,7 +42,7 @@ function LoginComp({ onClose }) {
 
             axios.post('http://localhost:5000/register', user)
                 .then(res => {
-                    console.log('res', res);
+                    // console.log('res', res);
                     closeLoginComp()
                     onClose()
                 })
@@ -90,7 +90,7 @@ function LoginComp({ onClose }) {
                 </div>
                 <p >{errors.firstName?.message}</p>
                 <p >{errors.secondName?.message}</p>
-                <input className={styles.inputContacts} aria-hidden={false} placeholder="Ваш номер телефону"
+                <input className={styles.inputContacts} aria-hidden={false} placeholder="Ваш номер телефону +380"
                     ref={inputRef} onChange={() => handleMusk} required />
 
                 <input type="email" className={styles.inputContacts} aria-hidden={false} placeholder="Email"

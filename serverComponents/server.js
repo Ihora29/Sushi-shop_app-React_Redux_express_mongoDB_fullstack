@@ -158,9 +158,7 @@ app.get('/add-order', middlCheckToken, async (req, res) => {
 
 
 
-app.get('/users/:id', middlCheckToken, middlewareGetUser(['admin-user', 'login - user']), async (req, res) => {
-
-
+app.get('/users/:id', middlCheckToken, middlewareGetUser(['admin-user', 'login-user']), async (req, res) => {
     try {
         const userById = await UserModel.findById(req.params.id);
         res.json(userById);

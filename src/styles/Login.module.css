@@ -132,4 +132,15 @@
         height: 380px;
     }
 
+    .registerBtn {
+        width: 40%;
+        margin: 20px auto;
+        border-radius: 3px;
+        background-color: #7ab9f0;
+        height: 40px;
+        border: none;
+        color: white;
+        font-size: 10px;
+    }
+
 }
