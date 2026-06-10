@@ -18,26 +18,32 @@ import axios from 'axios';
 
 const MakeOrderPage = () => {
 
+    const [showHelpMessage, setShowHelpMessage] = useState(true);
+    const [totalSum, setTotalSum] = useState(0);
+    const productsData = useSelector((state) => state.products.products);
+    const userAuth = useSelector((state) => state.getUser.user);
+    const basket = useSelector((state) => state.basketItems.basketItems);
+    const [showComp, setShowComp] = useState(false)
+    const [address, setAddress] = useState('Львів, Україна');
+    const [motiItem, setMotiItem] = useState(null);
+    const [clientDelivery, setClientDelivery] = useState({});
+    const [showCheck, setShowCheck] = useState(false);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchProducts());
         dispatch(fetchUser())
     }, [dispatch]);
-    const productsData = useSelector((state) => state.products.products);
-    const userAuth = useSelector((state) => state.getUser.user);
-    const basket = useSelector((state) => state.basketItems.basketItems);
-
-    const [address, setAddress] = useState('Львів, Україна');
-
-    const [clientDelivery, setClientDelivery] = useState({});
-    const [showCheck, setShowCheck] = useState(false);
 
     const onSubmit = async (data) => {
         const phoneValue = inputRef.current?.value;
-
-
-        if (data.name == userAuth.firstName && phoneValue == userAuth.phone && basket.length > 0) {
+        const userInCheck = { ...data, phone: phoneValue }
+        if (data && basket.length > 0) {
+            setClientDelivery(userInCheck)
+            setShowCheck(true)
+        }
+        else if (phoneValue == userAuth.phone && basket.length > 0) {
             const orderBasket = basket.map(({ id, details, ...rest }) => rest);
             const userOrder = {
                 name: data.name,
@@ -47,33 +53,21 @@ const MakeOrderPage = () => {
             }
             try {
                 const result = await axios.post('http://localhost:5000/add-order', userOrder)
-                console.log(result);
-
+                setShowCheck(true)
             } catch (error) {
                 console.log(error);
             }
-
         } else {
-            console.log('false');
-
+            console.log('false smthng wrong');
         }
-        //setClientDelivery(userDeliver)
-        // if (orderItem.length > 0) {
-        //     setShowCheck(true);
-        // }
+
     };
-
-
-    const [motiItem, setMotiItem] = useState(null);
-
 
     useEffect(() => {
         if (productsData.length > 0) {
             setMotiItem(productsData[10]);
         }
     }, [productsData]);
-
-    const [showHelpMessage, setShowHelpMessage] = useState(true);
 
     const handleCloseMessage = () => {
         setShowHelpMessage(false)
@@ -86,15 +80,14 @@ const MakeOrderPage = () => {
     const inputRef = useMask({
         mask: '380_________',
         showMask: false,
-        replacement: { _: /\d/ },
+        replacement: {
+            _: /\d/,
+        },
     });
 
     const handleMusk = () => {
         inputRef.showMask = true;
     };
-
-
-    const [totalSum, setTotalSum] = useState(0);
 
     useEffect(() => {
         const totalSumRes = basket.reduce((accumulator, item) => accumulator + item.price * item.totalCount, 0);
@@ -131,12 +124,9 @@ const MakeOrderPage = () => {
         );
     };
 
-
-
     return (
 
         <>
-
             <div>
                 {Array.isArray(basket) && basket.length > 0 && showHelpMessage ?
                     <> <PopUpDelivery handleCloseMessage={handleCloseMessage} setShowHelpMessage={setShowHelpMessage} /></>
@@ -278,7 +268,7 @@ const MakeOrderPage = () => {
                                             required
                                             placeholder='Ваше ім*я' />
                                         <input className={styles.homeInput} type="text" {...register('street')}
-                                            //required
+                                            required
                                             placeholder='Вулиця' />
                                         <input className={styles.homeInput} type="text" {...register('entrance', {
                                             pattern: {

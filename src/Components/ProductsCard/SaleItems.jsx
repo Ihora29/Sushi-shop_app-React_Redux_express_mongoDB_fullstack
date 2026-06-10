@@ -19,16 +19,16 @@ const SaleItems = () => {
   const productsData = useSelector((state) => state.products.products);
   useEffect(() => {
     setCountProducts(productsData);
-    console.log(isUserAuth);
+
 
 
   }, []);
 
 
   useEffect(() => {
-    if (allProducts) {
-      setSaleItems(itemsWithOption)
-    }
+
+    setSaleItems(itemsWithOption)
+
 
   }, [productsData]);
 

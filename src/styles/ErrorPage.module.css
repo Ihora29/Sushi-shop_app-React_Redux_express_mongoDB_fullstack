@@ -54,7 +54,7 @@
 }
 
 .checkWrapper {
-    width: 320px;
+    width: 25%;
     min-height: 350px;
     background-color: #d1eaff;
     border-radius: 7px;
@@ -164,7 +164,15 @@
     color: #2f70fb;
 }
 
-@media screen and (max-width: 767px) {
+.thnksOrder {
+    color: black;
+}
+
+.addressName {
+    color: black;
+}
+
+@media screen and (max-width: 768px) {
 
     .mainWrapper {
         width: 100%;
@@ -192,6 +200,35 @@
         color: black;
     }
 
+    .checkWrapper {
+        width: 80%;
+        left: 10%;
+        min-height: 400px;
+    }
+
+    .thnksOrder {
+        font-size: 16px;
+    }
+
+    .footerCheckH6 {
+        color: black;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .checkBtn {
+        width: 50%;
+        margin: 20px auto 10px;
+        height: 27px;
+        border: 2px solid black;
+        border-radius: 7px;
+        color: black;
+        text-decoration: none;
+        text-align: center;
+        font-weight: bold;
+        background-color: azure;
+    }
+
     .workPopUp {
         width: 90%;
 
@@ -207,16 +244,7 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-    /* .mainWrapper {
-        width: 100vh;
-        display: flex;
-        flex-direction: column;
 
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-
-    } */
 
     .yourOrderH2 {
         display: block;
